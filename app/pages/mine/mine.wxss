@@ -1,0 +1,16 @@
+/* pages/mine/mine.wxss */
+
+.header {
+    padding: 15px 0;
+    text-align: center;
+    background-color: #ff5801;
+    color: #fff;
+}
+
+.avatar {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 5rpx solid rgba(255, 255, 255, 0.6);
+}

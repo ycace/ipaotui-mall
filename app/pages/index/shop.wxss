@@ -1,0 +1,39 @@
+.shop__item {
+  align-items: flex-start;
+}
+
+.shop__sales {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+
+.shop__star {
+  margin-right: 5px;
+}
+
+
+
+.shop__misc {
+  margin-top: 5px;
+}
+
+.shop__promotion {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #999;
+  border-top: 1rpx dashed #E5E5E5;
+}
+
+.shop__promotion-item {
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shop__promotion-icon {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}

@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/shop/show",
+    "pages/index/index",
+    "pages/order/list",
+    "pages/mine/mine",
+    "pages/index/address",
+    "pages/order/show",
+    "pages/order/quasi",
+    "pages/shop/category",
+    "pages/shop/search",
+    "pages/address/list",
+    "pages/address/add",
+    "pages/address/select"
+  ],
+  "window": {
+    "backgroundColor": "#f8f8f8",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ff5801",
+    "navigationBarTitleText": "爱跑腿外卖",
+    "navigationBarTextStyle": "light"
+  },
+  "tabBar": {
+    "selectedColor": "#ff5801",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/Shop_Tabbar_TakeOut_Empty@2x.png",
+        "selectedIconPath": "images/Shop_Tabbar_TakeOut_Full@2x.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/list",
+        "iconPath": "images/Shop_Tabbar_Order_Empty@2x.png",
+        "selectedIconPath": "images/Shop_Tabbar_Order_Full@2x.png",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "images/Shop_Tabbar_My_Empty@2x.png",
+        "selectedIconPath": "images/Shop_Tabbar_My_Full@2x.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

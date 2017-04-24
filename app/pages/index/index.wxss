@@ -1,0 +1,61 @@
+/**index.wxss**/
+
+@import './shop.wxss';
+@import '/templates/star-rate.wxss';
+
+.topbar {
+  display: flex;
+  padding: 10px;
+  background-color: #ff5801;
+}
+
+.address {
+  position: relative;
+  padding: 3px 5px;
+  min-width: 40%;
+  max-width: 50%;
+  font-size: 14px;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 15px/50%;
+  overflow: hidden;
+}
+
+.address__icon {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}
+
+.search {
+  flex: 1;
+  margin-left: 15px;
+  padding: 3px 5px;
+  font-size: 14px;
+  color: #999;
+  background-color: #fff;
+  border-radius: 15px/50%;
+}
+
+.category {
+  padding: 0 10px 10px;
+  font-size: 14px;
+  text-align: center;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.category__item {
+  float: left;
+  margin-top: 10px;
+  width: 25%;
+}
+
+.category__icon {
+  height: 36px;
+  width: 36px;
+}
+
+

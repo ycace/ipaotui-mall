@@ -1,0 +1,25 @@
+
+<!--pages/mine/mine.wxml-->
+<view class="header">
+  <view>
+    <image class="avatar" src="/images/default.jpg"></image>
+  </view>
+  <view>
+    未登录
+  </view>
+</view>
+<view class="weui-cells">
+  <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="weui-cell__bd">收货地址</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </navigator>
+  <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="weui-cell__bd">客服热线</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access">400-926-2108</view>
+  </navigator>
+</view>
+<view class="button-sp-area">
+  <button class="weui-btn" type="primary">
+    立即登录
+  </button>
+</view>

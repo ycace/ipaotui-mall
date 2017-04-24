@@ -1,0 +1,9 @@
+.star-rate {
+    display: flex;
+    font-size: 16px;
+    color: #999;
+}
+
+.star-rate__item_active {
+    color: #ffd700;
+}

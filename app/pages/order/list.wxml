@@ -1,0 +1,10 @@
+
+<!--pages/order/list.wxml-->
+<view wx:if="{{login}}" class="order-list"></view>
+<view wx:else class="order-logout">
+    <image class="order-logout__bg" src="/images/order-logout@2x.png"></image>
+    <view class="order-logout__tip">
+        您还没有登录, 登录后查看订单
+    </view>
+    <navigator url="url" class="weui-btn weui-btn_primary weui-btn_mini"  hover-class="button-hover">登录</navigator>
+</view>

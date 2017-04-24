@@ -1,0 +1,15 @@
+/* pages/order/list.wxss */
+
+.order-logout {
+    text-align: center;
+}
+
+.order-logout__bg {
+    margin-top: 100px;
+    width: 176px;
+    height: 126px;
+}
+
+.order-logout__tip {
+    margin-top: 10px;
+}

@@ -1,0 +1,25 @@
+/* pages/shop/show.wxss */
+
+.shop-info {
+    color: #fff;
+    background-color: #ff5801;
+}
+
+.shop-info::before {
+    border: none;
+}
+
+.shop-info__desc {
+    color: #fff;
+}
+
+.shop-info__pic {
+    margin-right: 10px;
+    height: 60px;
+    width: 60px;
+    border: 5rpx solid #fff;
+    border-radius: 50%;
+}
+.weui-cell__ft_in-access::after {
+    border-color: #fff;
+}

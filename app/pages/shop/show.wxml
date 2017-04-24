@@ -1,0 +1,22 @@
+
+<!--pages/shop/show.wxml-->
+<view class="shop-info weui-panel weui-panel_access">
+  <view class="weui-panel__bd">
+    <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="shop-info_active">
+      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <image class="weui-media-box__thumb shop-info__pic" src="{{info.pic_url}}" />
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg weui-cell__ft_in-access">
+        <view class="weui-media-box__title">{{info.seller_name}}</view>
+        <view class="weui-media-box__desc shop-info__desc">
+          {{info.min_price}}元起送 | {{info.delivery_fee}}元配送费 | {{info.reach_time}}分钟到达
+        </view>
+      </view>
+    </navigator>
+    <view wx:if="{{info.promotion && info.promotion.length > 0}}" class="promotion">
+        <view wx:for="{{info.promotion}}" wx:key="index" class="promotion-item">
+
+        </view>
+    </view>
+  </view>
+</view>

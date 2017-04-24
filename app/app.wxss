@@ -1,0 +1,74 @@
+/**app.wxss**/
+@import './weui.wxss';
+
+page {
+  font-size: 16px;
+  background-color: #f8f8f8;
+}
+
+.primary-color {
+  color: #ff5801 !important;
+}
+
+.grey-color {
+  color: #999 !important;
+}
+
+.trangle::after {
+  content: "";
+  margin-top: -4px;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  height: 6px;
+  width: 6px;
+  border-width: 2rpx 2rpx 0 0;
+  border-style: solid;
+  transform: rotate(45deg);
+}
+
+button[type=primary], .weui-btn_primary {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
+  box-sizing: border-box;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 2.55555556;
+  border-radius: 5px;
+  -webkit-tap-highlight-color: transparent;
+  color: #fff;
+  background-color: #ff5801;
+}
+
+.weui-btn_mini {
+  display: inline-block;
+  line-height: 2.3;
+  font-size: 13px;
+  padding: 0 1.34em;
+  border-radius: 0;
+}
+
+button[type="primary"][plain] {
+  color: #ff5801;
+  border-color: #ff5801;
+}
+
+.button-hover[type=primary], .button-hover.weui-btn_primary {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #ee5200;
+}
+
+.button-hover[type=primary][plain] {
+  color: #ee5200;
+  border-color: #ee5200;
+}
+
+.button-sp-area {
+  margin-top: 15px;
+  padding: 0 15px;
+}
