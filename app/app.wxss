@@ -3,6 +3,7 @@
 
 page {
   font-size: 16px;
+  line-height: 1.5;
   background-color: #f8f8f8;
 }
 
@@ -12,6 +13,13 @@ page {
 
 .grey-color {
   color: #999 !important;
+}
+.text-large {
+  font-size: 1.2em;
+}
+
+.text-small {
+  font-size: 0.8em;
 }
 
 .trangle::after {
@@ -71,4 +79,12 @@ button[type="primary"][plain] {
 .button-sp-area {
   margin-top: 15px;
   padding: 0 15px;
+}
+
+.weui-navbar__item.weui-bar__item_on {
+  color: #ff5801;
+}
+
+.weui-navbar__slider {
+  background-color: #ff5801;
 }

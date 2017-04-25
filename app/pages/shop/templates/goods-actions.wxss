@@ -1,0 +1,24 @@
+.goods-action-btn {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    color: #ff5801;
+    font-size: 1.2em;
+    line-height: 25px;
+    font-weight: 400;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+
+.goods-action-btn_decrease {
+    border: 1rpx solid #e8e8e8;
+}
+
+.goods-action-btn_increase {
+    background-color: #ff5801;
+    color: #fff;
+}
+
+.goods-action-num {
+    margin: 0 10px;
+}

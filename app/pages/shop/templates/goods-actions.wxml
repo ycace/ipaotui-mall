@@ -1,0 +1,9 @@
+<template name="goods-actions">
+  <view class="goods-actions weui-flex">
+    <block wx:if="{{num > 0}}">
+      <view data-menu-index="{{menu_index}}" data-goods-index="{{goods_index}}" data-sub-index="{{sub_index}}" bindtap="decease" class="goods-action-btn goods-action-btn_decrease">-</view>
+      <view class="goods-action-num">{{num}}</view>
+    </block>
+    <view data-menu-index="{{menu_index}}" data-goods-index="{{goods_index}}" data-sub-index="{{sub_index}}" bindtap="increase" class="goods-action-btn goods-action-btn_increase">+</view>
+  </view>
+</template>
