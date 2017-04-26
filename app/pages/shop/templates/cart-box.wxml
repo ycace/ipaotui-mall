@@ -1,0 +1,36 @@
+<import src="goods-actions"/>
+
+<template name="cart-box">
+  <view class="cart-box">
+    <view class="cart-box__overlay" bindtap="hideCart"></view>
+    <view class="cart-box__content">
+      <view class="cart-box__icon">
+        <image src="/images/cart-full@2x.png" class="cart-box__icon-img"></image>
+        <view wx:if="{{totalNum > 0}}" class="weui-badge cart-box__icon-badge">{{totalNum}}</view>
+      </view>
+      <view class="cart-box__hd weui-flex">
+        <view class="weui-flex__item">
+            餐盒费{{totalPackingFee}}元
+        </view>
+        <view class=" cart-box__btn-clear" bindtap="clearCart">
+            <image class="cart-box__btn-clear-img" src="/images/delete@2x.png"></image>清空购物车
+        </view>
+      </view>
+      <view class="cart-box__bd">
+        <view wx:for="{{goods}}" wx:key="index" class="cart-box__item">
+            <view class="cart-box__item-name">
+                {{item.goods_name}}
+                <view wx:if="{{item.sub_name}}" class="text-small grey-color">+{{item.sub_name}}</view>
+            </view>
+            <view class="cart-box__item-price">
+            ¥{{item.price}}
+            <view wx:if="{{item.packing_fee > 0}}" class="text-small grey-color">餐盒费{{item.packing_fee}}元</view>
+            </view>
+            <view class="cart-box__item-btns">
+                <template is="goods-actions" data="{{...item}}"></template>
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

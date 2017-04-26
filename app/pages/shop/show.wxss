@@ -1,6 +1,7 @@
 /* pages/shop/show.wxss */
-
 @import './templates/goods-actions.wxss';
+@import './templates/cart-box.wxss';
+@import './templates/sub-goods.wxss';
 
 .shop-show {
   display: flex;
@@ -65,16 +66,29 @@
 }
 
 .shop-content {
+  position: relative;
   flex: 1;
-  height: 0;
   background-color: #fff;
+}
+.weui-tab_shop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
 }
 
 /* menu-tab */
 
 .menu-tab {
+  position: relative;
   padding-bottom: 50px;
   box-sizing: border-box;
+  height: 100%;
+}
+
+.menu-content {
   height: 100%;
 }
 
@@ -114,11 +128,13 @@
   margin-left: 8px;
   padding: 8px 8px 8px 0;
 }
+
 .goods-item:not(:last-child) {
   border-bottom: 1rpx solid #e8e8e8;
 }
+
 .goods-item__name {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .goods-item__pic {
@@ -128,22 +144,73 @@
 }
 
 .goods-item__actions {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
 }
 
 .goods-item__sub-goods {
-    position: relative;
-    padding: 3px 8px;
-    font-size: 12px;
-    color: #fff;
-    background-color: #ff5801;
-    border-radius: 8px / 50%;
+  position: relative;
+  padding: 3px 8px;
+  font-size: 12px;
+  color: #fff;
+  background-color: #ff5801;
+  border-radius: 8px / 50%;
 }
 
 .goods-item__sub-goods-badge {
   position: absolute;
   top: -0.5em;
   right: -0.5em;
+}
+
+.menu-cart {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  align-items: center;
+}
+.menu-cart__content {
+  height: 50px;
+  align-items: center;
+}
+
+.menu-cart__badge-wrap {
+  position: relative;
+  top: -10px;
+  margin-left: 10px;
+}
+.menu-cart__badge {
+  position: absolute;
+  top: -.4em;
+  right: -.4em;
+}
+
+.menu-cart__icon {
+  width: 50px;
+  height: 50px;
+}
+
+.menu-cart__price-wrap {
+  margin-left: 10px;
+}
+
+.menu-cart__btn[type=primary] {
+  margin: 0;
+  height: 50px;
+  min-width: 100px;
+  font-size: 16px;
+  line-height: 50px;
+  border: none;
+  border-radius: 0;
+}
+.menu-cart__btn::after {
+  content: none;
+}
+
+.menu-cart__price {
+  color: #ff5801;
+  font-size: 1.2em;
 }

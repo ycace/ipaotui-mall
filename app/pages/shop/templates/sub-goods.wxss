@@ -1,0 +1,41 @@
+.sub-goods {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.sub-goods__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sub-goods__content {
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    width: 300px;
+    box-sizing: border-box;
+    background-color: #fff;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+
+.sub-goods__hd {
+    padding: 5px 0;
+    text-align: center;
+}
+
+.sub-goods__bd {
+    padding: 10px;
+}
+
+.sub-goods__item {
+    
+}

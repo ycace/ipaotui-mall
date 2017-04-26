@@ -1,0 +1,23 @@
+<import src="goods-actions"/>
+
+<template name="sub-goods">
+  <view class="sub-goods">
+    <view class="sub-goods__overlay"></view>
+    <view class="sub-goods__content">
+      <view class="sub-goods__hd">
+        test
+      </view>
+      <view class="sub-goods__bd">
+        <view >规格: </view>
+        <view class="sub-goods__list">
+          <view class="sub-goods__item sub-goods__item_active">
+            750ml
+          </view>
+          <view class="sub-goods__item">
+            255ml
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

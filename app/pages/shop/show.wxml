@@ -1,4 +1,7 @@
-<import src="templates/goods-actions.wxml"/>
+<import src="templates/goods-actions.wxml" />
+<import src="templates/cart-box.wxml" />
+<import src="templates/sub-goods.wxml" />
+
 <!--pages/shop/show.wxml-->
 <view class="shop-show">
   <view class="shop-info weui-panel weui-panel_access">
@@ -33,7 +36,7 @@
     </view>
   </view>
   <view class="shop-content">
-    <view class=" weui-tab">
+    <view class=" weui-tab weui-tab_shop">
       <view class="weui-navbar">
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
@@ -43,32 +46,52 @@
         <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
       </view>
       <view class="weui-tab__panel">
-        <view class="weui-tab__content menu-tab weui-flex" hidden="{{activeIndex != 0}}">
-          <view  class="menu-list">
-            <view bindtap="menuClick" id="{{index}}" class="menu-item {{index == activeMenuIndex ? 'menu-item_active' : ''}} " wx:for="{{info.menus}}" wx:key="menu_id">
-              {{item.menu_name}}
+        <view class="weui-tab__content menu-tab" hidden="{{activeIndex != 0}}">
+          <view class="menu-content weui-flex">
+            <view class="menu-list">
+              <view bindtap="menuClick" id="{{index}}" class="menu-item {{index == activeMenuIndex ? 'menu-item_active' : ''}} " wx:for="{{info.menus}}" wx:key="menu_id">
+                {{item.menu_name}}
+              </view>
             </view>
-          </view>
-          <view wx:if="{{info.menus && info.menus[activeMenuIndex]}}" class="goods-list weui-flex__item">
-            <view class="goods-list__label">
-              {{info.menus[activeMenuIndex].menu_name}}
-            </view>
-            <view wx:for="{{info.menus[activeMenuIndex].goods2}}" wx:key="goods_id" class="goods-item weui-flex">
-              <image class="goods-item__pic" src="{{item.pic_url}}"></image>
-              <view class="weui-flex__item">
-                <view class="goods-item__name">{{item.goods_name}}</view>
-                <view class="goods-item__desc text-small grey-color">月售{{item.sales}}份</view>
-                <view class="goods-item__price primary-color text-large">¥{{item.price}}</view>
-                <view class="goods-item__actions">
-                  <view wx:if="{{item.sub_goods && item.sub_goods.length > 0}}" class="goods-item__sub-goods">
-                  选规格
-                    <view wx:if="{{order['goodsNum'][item.goods_id] > 0}}" class="weui-badge goods-item__sub-goods-badge">{{order['goodsNum'][item.goods_id]}}</view>
+            <view wx:if="{{info.menus && info.menus[activeMenuIndex]}}" class="goods-list weui-flex__item">
+              <view class="goods-list__label">
+                {{info.menus[activeMenuIndex].menu_name}}
+              </view>
+              <view wx:for="{{info.menus[activeMenuIndex].goods2}}" wx:key="goods_id" class="goods-item weui-flex">
+                <image class="goods-item__pic" src="{{item.pic_url}}"></image>
+                <view class="weui-flex__item">
+                  <view class="goods-item__name">{{item.goods_name}}</view>
+                  <view class="goods-item__desc text-small grey-color">月售{{item.sales}}份</view>
+                  <view class="goods-item__price primary-color text-large">¥{{item.price}}</view>
+                  <view class="goods-item__actions">
+                    <view wx:if="{{item.sub_goods && item.sub_goods.length > 0}}" class="goods-item__sub-goods">
+                      选规格
+                      <view wx:if="{{order['goodsNum'][item.goods_id] > 0}}" class="weui-badge goods-item__sub-goods-badge">{{order['goodsNum'][item.goods_id]}}</view>
+                    </view>
+                    <template is="goods-actions" data="{{menuIndex: activeMenuIndex, goodsIndex: index, num: order['goodsNums'][item.goods_id]}}" wx:else />
                   </view>
-                  <template is="goods-actions" data="{{menu_index: activeMenuIndex, goods_index: index, num: order['goodsNums'][item.goods_id]}}" wx:else />
-                  
                 </view>
               </view>
             </view>
+          </view>
+          <view class="menu-cart weui-flex">
+            <view bindtap="toggleCart" class="weui-flex__item menu-cart__content weui-flex">
+              <view wx:if="{{!showCart}}" class="menu-cart__badge-wrap">
+                <image class="menu-cart__icon" src="{{order.totalNum > 0 ? '/images/cart-full@2x.png': '/images/cart-empty@2x.png'}}"></image>
+                <view wx:if="{{order.totalNum > 0}}" class="weui-badge menu-cart__badge">{{order.totalNum}}</view>
+              </view>
+              <view class="weui-flex__item menu-cart__price-wrap">
+                <view class="menu-cart__price" wx:if="{{order.totalPrice > 0}}">¥{{order.totalPrice}}</view>
+                <view class="text-small grey-color">另需配送费{{info.delivery_fee}}元</view>
+              </view>
+            </view>
+            <button class="weui-btn menu-cart__btn" type="primary" disabled="{{order.totalPrice < info.min_price ? true: false}}">
+              <block wx:if="{{order.totalPrice > 0 }}">
+                <text wx:if="{{order.totalPrice > info.min_price}}">选好了</text>
+                <text wx:else>还差{{info.min_price - order.totalPrice}}元起送</text>
+              </block>
+              <text wx:else>{{info.min_price}}元起送</text>
+            </button>
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">选项二的内容</view>
@@ -76,3 +99,5 @@
     </view>
   </view>
 </view>
+<template wx:if="{{showCart}}" is="cart-box" data="{{...order}}" />
+<template  is="sub-goods" />

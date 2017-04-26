@@ -1,6 +1,14 @@
 // pages/shop/show.js
 
 var sliderWidth = 96;
+var initOrder = {
+  totalNum: 0,
+  totalPrice: 0,
+  totalGoodsPrice: 0,
+  totalPackingFee: 0,
+  goodsNums: {},
+  goods: []
+}
 
 Page({
   data: {
@@ -10,14 +18,9 @@ Page({
     sliderLeft: 0,
 
     activeMenuIndex: 0,
+    showCart: false,
 
-    order: {
-      totalPrice: 0,
-      totalNum: 0,
-      totalPackingFee: 0,
-      goodsNums: {},
-      goods: []
-    },
+    order: initOrder,
 
     info: {
       "seller_id": "2",
@@ -103,7 +106,7 @@ Page({
               "pic_hd2": null,
               "detail": "鸡翅饭 xx",
               "price": "20.00",
-              "packing_fee": "0.00",
+              "packing_fee": "2.00",
               "sales": "41",
               "praise": "0",
               "stock": "59",
@@ -314,58 +317,56 @@ Page({
     })
   },
 
-  addGoodsNum(order, goodsId, subId, num = 1) {
+  addGoodsNum(order, item) {
     var {goods, goodsNums} = order
-    var item;
-    if (subId) {
-      item = goods.find(item => {
-        return item['goods_id'] == goodsId && item['subId'] == subId
+    var {goods_id, sub_id, num} = item
+    var itemIndex;
+    if (sub_id) {
+      itemIndex = goods.findIndex(item => {
+        return item['goods_id'] == goods_id && item['sub_id'] == sub_id
       })
-      if (item) {
-        item['num'] += num
-      } else {
-        goods.push({
-          'goods_id': goodsId,
-          'sub_id': subId,
-          'num': num
-        })
-      }
     } else {
-      item = goods.find(item => {
-        return item['goods_id'] == goodsId
+      itemIndex = goods.findIndex(item => {
+        return item['goods_id'] == goods_id
       })
-      if (item) {
-        item['num'] += num
-      } else {
-        goods.push({
-          'goods_id': goodsId,
-          'num': num
-        })
-      }
     }
-    if (goodsNums[goodsId]) {
-      goodsNums[goodsId] += num
+    if (itemIndex >= 0) {
+      goods[itemIndex]['num'] += num
     } else {
-      goodsNums[goodsId] = num
+      goods.push(item)
+    }
+    if (goodsNums[goods_id]) {
+      goodsNums[goods_id] += num
+    } else {
+      goodsNums[goods_id] = num
     }
 
   },
-  removeGoodsNum(order, goodsId, subId, num = 1) {
+  removeGoodsNum(order, item) {
     var {goods, goodsNums} = order
-    if (subId) {
-      for(let i=0, len=goods.length; i<len;i++) {
-        let item = goods[i]
-        if(item['goods_id'] == goodsId && item['sub_id'] == subId) {
-
-        }
-      }
+    var {goods_id, sub_id, num} = item
+    var itemIndex;
+    if (sub_id) {
+      itemIndex = goods.findIndex(item => {
+        return item['goods_id'] == goods_id && item['sub_id'] == sub_id
+      })
     } else {
-
+      itemIndex = goods.findIndex(item => {
+        return item['goods_id'] == goods_id
+      })
     }
-    if (goodsNums[goodsId] > 1) {
-      goodsNums[goodsId] -= num
+    if (itemIndex >= 0) {
+      item = goods[itemIndex]
+      if (item.num > 1) {
+        item.num -= num
+      } else {
+        goods.splice(itemIndex, 1)
+      }
+    }
+    if (goodsNums[goods_id] > 1) {
+      goodsNums[goods_id] -= num
     } else {
-      delete goodsNums[goodsId]
+      delete goodsNums[goods_id]
     }
   },
 
@@ -373,16 +374,23 @@ Page({
     var {order, info: {menus}} = this.data;
     var {menuIndex, goodsIndex, subIndex} = e.currentTarget.dataset;
     var goods = menus[menuIndex].goods2[goodsIndex];
-    var goods_id = goods['goods_id']
-    var sub_id;
+    var {goods_id, goods_name} = goods
     if (subIndex >= 0) {
       goods = goods.sub_goods[subIndex];
-      sub_id = goods['sub_id']
+      var {sub_id, sub_name} = goods
     }
     order.totalNum += 1;
-    order.totalPrice += +goods.price;
+    order.totalGoodsPrice += +goods.price;
     order.totalPackingFee += +goods.packing_fee;
-    this.addGoodsNum(order, goods_id, sub_id)
+    order.totalPrice = order.totalGoodsPrice + order.totalPackingFee;
+    this.addGoodsNum(order, {
+      goods_id, goods_name,
+      sub_id, sub_name,
+      price: goods.price,
+      packing_fee: goods.packing_fee,
+      menuIndex, goodsIndex, subIndex,
+      num: 1
+    })
     this.setData({
       order
     })
@@ -398,11 +406,39 @@ Page({
       sub_id = goods['sub_id']
     }
     order.totalNum -= 1;
-    order.totalPrice -= +goods.price;
+    order.totalGoodsPrice -= +goods.price;
     order.totalPackingFee -= +goods.packing_fee;
-    this.removeGoodsNum(order, goods_id, sub_id)
+    order.totalPrice = order.totalGoodsPrice + order.totalPackingFee;
+    this.removeGoodsNum(order, {
+      goods_id, sub_id,
+      num: 1
+    })
     this.setData({
       order
+    })
+    if (order.totalNum == 0) {
+      this.hideCart()
+    }
+  },
+  clearCart(e) {
+    this.setData({
+      order: initOrder,
+      showCart: false
+    })
+  },
+  hideCart(e) {
+    this.setData({
+      showCart: false
+    })
+  },
+  toggleCart(e) {
+    var {showCart, order: {totalNum}} = this.data
+
+    if (totalNum <= 0) {
+      return;
+    }
+    this.setData({
+      showCart: !showCart
     })
   }
 })

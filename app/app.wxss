@@ -65,6 +65,9 @@ button[type="primary"][plain] {
   color: #ff5801;
   border-color: #ff5801;
 }
+button[type="primary"][disabled] {
+  background-color: #ffa97c;
+}
 
 .button-hover[type=primary], .button-hover.weui-btn_primary {
   color: rgba(255, 255, 255, 0.8);
