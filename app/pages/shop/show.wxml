@@ -64,11 +64,11 @@
                   <view class="goods-item__desc text-small grey-color">月售{{item.sales}}份</view>
                   <view class="goods-item__price primary-color text-large">¥{{item.price}}</view>
                   <view class="goods-item__actions">
-                    <view wx:if="{{item.sub_goods && item.sub_goods.length > 0}}" class="goods-item__sub-goods">
+                    <view data-goods-id="{{item.goods_id}}" bindtap="showSubGoods" wx:if="{{item.sub_goods && item.sub_goods.length > 0}}" class="goods-item__sub-goods">
                       选规格
-                      <view wx:if="{{order['goodsNum'][item.goods_id] > 0}}" class="weui-badge goods-item__sub-goods-badge">{{order['goodsNum'][item.goods_id]}}</view>
+                      <view wx:if="{{order['goodsNums'][item.goods_id] > 0}}" class="weui-badge goods-item__sub-goods-badge">{{order['goodsNums'][item.goods_id]}}</view>
                     </view>
-                    <template is="goods-actions" data="{{menuIndex: activeMenuIndex, goodsIndex: index, num: order['goodsNums'][item.goods_id]}}" wx:else />
+                    <template is="goods-actions" data="{{goods_id: item.goods_id, num: order['goodsNums'][item.goods_id]}}" wx:else />
                   </view>
                 </view>
               </view>
@@ -100,4 +100,4 @@
   </view>
 </view>
 <template wx:if="{{showCart}}" is="cart-box" data="{{...order}}" />
-<template  is="sub-goods" />
+<template  is="sub-goods" wx:if="{{showSubGoods}}"  data="{{...activeSubGoods}}"/>
