@@ -22,6 +22,10 @@ page {
   font-size: 0.8em;
 }
 
+.trangle {
+  padding-right: 15px;
+}
+
 .trangle::after {
   content: "";
   margin-top: -4px;
@@ -59,6 +63,7 @@ button[type=primary], .weui-btn_primary {
   font-size: 13px;
   padding: 0 1.34em;
   border-radius: 0;
+  vertical-align: middle;
 }
 
 button[type="primary"][plain] {

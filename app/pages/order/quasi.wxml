@@ -1,2 +1,82 @@
+
 <!--pages/order/quasi.wxml-->
-<text>pages/order/quasi.wxml</text>
+<view class="quasi">
+  <view class="weui-panel weui-panel_address ">
+    <view class="weui-panel__bd ">
+      <navigator url class="weui-media-box weui-media-box_text weui-cell__ft_in-access weui-media-box_address">
+        <view class="weui-media-box__title weui-media-box__title_in-text">{{info.receiver}} {{info.receiver_phone}}</view>
+        <view class="weui-media-box__desc">
+          {{info.receiver_addr}}
+        </view>
+      </navigator>
+    </view>
+  </view>
+  <view class="weui-cells">
+    <view class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">支付方式</view>
+      <view class="">在线支付</view>
+    </view>
+    <navigator url="" wx:if="{{info.coupon_money > 0}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">红包</view>
+      <view class="weui-cell__ft_in-access">¥{{info.coupon_money}}</view>
+    </navigator>
+    <view class="weui-cell weui-cell_access">
+      <view class="weui-cell__bd">红包</view>
+      <view class="weui-cell__ft">暂无可用</view>
+    </view>
+  </view>
+  <view class="quasi-goods">
+    <view class="quasi-goods__hd">
+      <image class="quasi-goods__img" src="/images/Shop-icon.png"></image>
+      {{info.seller_name}}
+    </view>
+    <view class="quasi-goods__bd">
+      <view class="quasi-goods__list">
+        <view wx:for="{{info.goods}}" wx:key="{{index}}" class="quasi-goods__item">
+          <view class="quasi-goods__item-name">{{item.goods_name}}</view>
+          <view class="quasi-goods__item-num">x{{item.num}}</view>
+          <view class="quasi-goods__item-price">¥{{item.price_sum}}</view>
+        </view>
+      </view>
+      <view class="quasi-goods__list">
+        <view class="quasi-goods__item">
+          <view class="quasi-goods__item-name">餐盒费</view>
+          <view class="quasi-goods__item-num"></view>
+          <view class="quasi-goods__item-price">¥{{info.packing_fee}}</view>
+        </view>
+        <view class="quasi-goods__item">
+          <view class="quasi-goods__item-name">配送费</view>
+          <view class="quasi-goods__item-num"></view>
+          <view class="quasi-goods__item-price">¥{{info.delivery_fee}}</view>
+        </view>
+      </view>
+      <view class="quasi-goods__list">
+        <view class="quasi-goods__item">
+          <view class="quasi-goods__item-name quasi-goods__item-name_grey">商城优惠</view>
+          <view class="quasi-goods__item-num"></view>
+          <view class="quasi-goods__item-price">-¥{{info.cut_money}}</view>
+        </view>
+      </view>
+      <view class="quasi-goods__list">
+        <view class="quasi-goods__item">
+          <view class="quasi-goods__item-name quasi-goods__item-name_grey">
+            总计¥{{info.order_price}} 优惠¥{{info.cut_money}}
+          </view>
+          <view class="quasi-goods__item-num"></view>
+          <view class="quasi-goods__item-price">实付
+            <text class="primary-color">¥{{info.pay_price}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="quasi-actions">
+  <view class="quasi-actions__cut">已优惠¥{{info.cut_money}}</view>
+  <view class="quasi-actions__pay">
+    待支付 <text class="primary-color">¥{{info.pay_price}}</text>
+  </view>
+  <button class="weui-btn menu-cart__btn" type="primary" >
+    提交订单
+  </button>
+</view>

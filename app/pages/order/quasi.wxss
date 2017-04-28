@@ -1,1 +1,91 @@
 /* pages/order/quasi.wxss */
+
+.quasi {
+    padding-bottom: 50px;
+}
+
+.weui-media-box_address::after {
+  right: 15px;
+}
+
+/* quasi-goods */
+
+.quasi-goods {
+  margin-top: 10px;
+  background-color: #fff;
+  border-top: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.quasi-goods__hd {
+  margin-left: 10px;
+  padding: 10px 10px 10px 0;
+  color: #999;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.quasi-goods__img {
+  margin-top: -2px;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.quasi-goods__list {
+  margin-left: 10px;
+}
+
+.quasi-goods__list:not(:last-child) {
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.quasi-goods__item {
+  display: flex;
+  padding: 10px 10px 10px 0;
+}
+
+.quasi-goods__item-name {
+  flex: 2;
+}
+
+.quasi-goods__item-name_grey {
+  color: #999;
+}
+
+.quasi-goods__item-num {
+  flex: 1;
+  color: #999;
+}
+
+
+/* quasi-action*/ 
+.quasi-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 50px;
+    padding-left: 10px;
+    background-color: #fff;
+    align-items: center;
+}
+.quasi-actions__cut {
+    flex: 1;
+}
+
+.quasi-actions__pay {
+    margin-right: 10px;
+}
+.menu-cart__btn[type=primary] {
+  margin: 0;
+  height: 50px;
+  min-width: 100px;
+  font-size: 16px;
+  line-height: 50px;
+  border: none;
+  border-radius: 0;
+}
+.menu-cart__btn::after {
+  content: none;
+}

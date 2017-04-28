@@ -1,2 +1,28 @@
+
 <!--pages/address/select.wxml-->
-<text>pages/address/select.wxml</text>
+<view class="address-select">
+  <view class="address-select__hd">
+    可选收货地址
+  </view>
+  <view class="address__list">
+    <view wx:for="{{list}}" wx:key="addr_id" class="address__item">
+      <image wx:if="{{selectedId == item.addr_id}}" class="address__item-selected-img" src="/images/address_list_selected.png"></image>
+      <view class="">
+        {{item.receiver}} {{item.phone}}
+      </view>
+      <view class="grey-color">
+        {{item.addr}}
+      </view>
+      <navigator url="/pages/address/add?id={{item.addr_id}}" class="address__item-edit">
+        <image  
+        class="address__item-edit-img"
+        src="/images/address_edit_white.png">
+        </image>
+      </navigator>
+    </view>
+  </view>
+</view>
+
+<navigator class="address-add-btn" url="/pages/address/add">
+    新增地址
+</navigator>

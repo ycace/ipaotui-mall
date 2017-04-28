@@ -3,7 +3,7 @@
 <!--index.wxml-->
 <view class="topbar">
   <view class="address trangle">
-    <image class="address__icon" src="/images/map-marker.png"></image>
+    <image class="address__icon" src="/images/location.png"></image>
     电商大厦电商大厦(兴区路)
   </view>
   <view class="search">

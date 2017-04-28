@@ -1,15 +1,74 @@
 /* pages/order/list.wxss */
 
 .order-logout {
-    text-align: center;
+  text-align: center;
 }
 
 .order-logout__bg {
-    margin-top: 100px;
-    width: 176px;
-    height: 126px;
+  margin-top: 100px;
+  width: 176px;
+  height: 126px;
 }
 
 .order-logout__tip {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+/* order-list */
+
+.order-item {
+  margin-top: 10px;
+  background-color: #fff;
+  border-top: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.order-item__hd {
+  margin-left: 15px;
+  padding: 5px 15px 5px 0;
+  border-bottom: 1rpx solid #e8e8e8;
+  overflow: hidden;
+}
+
+.order-item__shop {
+  position: relative;
+  float: left;
+  color: #000;
+}
+
+.order-item__status {
+  float: right;
+  color: #999;
+  font-size: 14px;
+}
+.order-item__status_pay {
+    color: #ff5801;
+}
+
+.order-item__bd {
+  display: flex;
+  padding: 10px 15px;
+}
+
+.order-item__ft {
+  margin-left: 15px;
+  padding: 5px 15px 5px 0;
+  text-align: right;
+  border-top: 1rpx solid #e8e8e8;
+}
+
+.order-item__content {
+  position: relative;
+  flex: 1;
+}
+
+.order-item__pic {
+  margin-right: 10px;
+  height: 60px;
+  width: 60px;
+}
+
+.order-item__price {
+  font-size: 1.2em;
+  color: #ff5801;
 }

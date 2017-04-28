@@ -1,1 +1,2 @@
 /* pages/address/list.wxss */
+@import 'select.wxss';

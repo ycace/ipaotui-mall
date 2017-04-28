@@ -1,17 +1,17 @@
 {
   "pages": [
-    "pages/shop/show",
-    "pages/index/index",
     "pages/order/list",
-    "pages/mine/mine",
-    "pages/index/address",
-    "pages/order/show",
-    "pages/order/quasi",
-    "pages/shop/category",
-    "pages/shop/search",
     "pages/address/list",
     "pages/address/add",
-    "pages/address/select"
+    "pages/address/select",
+    "pages/index/index",
+    "pages/order/quasi",
+    "pages/shop/show",
+    "pages/mine/mine",
+    "pages/index/address",
+    "pages/shop/category",
+    "pages/shop/search",
+    "pages/order/show"
   ],
   "window": {
     "backgroundColor": "#f8f8f8",

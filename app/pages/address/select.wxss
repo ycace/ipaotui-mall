@@ -1,1 +1,54 @@
 /* pages/address/select.wxss */
+page {
+    padding-bottom: 50px;
+}
+
+.address-select__hd {
+    padding: 5px 15px;
+    font-size: 14px;
+    color: #999;
+    border-bottom: 1rpx solid #e8e8e8;
+}
+
+.address__list {
+    background-color: #fff;
+}
+
+.address__item {
+    position: relative;
+    padding: 10px 15px;
+    border-bottom: 1rpx solid #e8e8e8;
+}
+
+.address__item-selected-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 29px;
+    height: 28px;
+}
+
+.address__item-edit {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    padding: 5px 10px;
+    transform: translateY(-50%);
+}
+
+.address__item-edit-img {
+    width: 20px;
+    height: 20px;
+}
+
+.address-add-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    background-color: #ff5801;
+}

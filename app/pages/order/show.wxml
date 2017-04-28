@@ -1,4 +1,4 @@
 <!--pages/order/show.wxml-->
 <view class="header weui-flex">
-    <image src="src"></image>
+    test
 </view>
