@@ -1,4 +1,20 @@
+
 <!--pages/order/show.wxml-->
-<view class="header weui-flex">
-    test
+<view class="order-show-tab tab">
+  <view class="tab__navbar">
+    <view class="tab__navbar-item tab__navbar-item_active">
+      订单状态
+    </view>
+    <view class="tab__navbar-item">
+      订单详情
+    </view>
+  </view>
+  <swiper class="tab-swiper" autoplay="{{false}}">
+    <swiper-item class="tab__swiper-item">
+      <view class="classname"></view>
+    </swiper-item>
+    <swiper-item class="tab__swiper-item">
+      详情
+    </swiper-item>
+  </swiper>
 </view>

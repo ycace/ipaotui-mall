@@ -1,1 +1,35 @@
 /* pages/order/show.wxss */
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.tab__navbar {
+  display: flex;
+  color: #999;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.tab__navbar-item {
+  position: relative;
+  padding: 5px 8px;
+}
+.tab__navbar-item_active {
+    color: #000;
+}
+.tab__navbar-item_active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1rpx;
+  height: 2rpx;
+  width: 100%;
+  background-color: #ff5801;
+}
+
+.tab-swiper {
+  flex: 1;
+}
