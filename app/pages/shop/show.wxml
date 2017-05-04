@@ -115,7 +115,7 @@
             <view class="review-list">
               <view wx:for="{{review.list}}" wx:key="order_id" class="review-item">
                 <view class="">
-                  <image class="review-item__head-img" src="{{item.head_pic || '/images/default.jpg'}}"></image>
+                  <image class="review-item__head-img" src="{{item.head_pic || '/images/default-image.png'}}"></image>
                 </view>
                 <view class="review-item__content">
                   <view class="review-item__hd">

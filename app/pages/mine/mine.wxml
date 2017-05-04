@@ -2,7 +2,7 @@
 <!--pages/mine/mine.wxml-->
 <view class="header">
   <view>
-    <image class="avatar" src="/images/default.jpg"></image>
+    <image class="avatar" src="/images/default-image.png"></image>
   </view>
   <view>
     未登录

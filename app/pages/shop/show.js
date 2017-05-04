@@ -14,7 +14,7 @@ var initOrder = {
 Page({
   data: {
     tabs: ["商品", "评价", "商家"],
-    activeIndex: 2,
+    activeIndex: 1,
 
     activeMenuIndex: 0,
     showCart: false,

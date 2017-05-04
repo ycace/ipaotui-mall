@@ -2,10 +2,10 @@
 import timeago from './timeago.min'
 import QQMapWX from './qqmap-wx-jssdk.min'
 import { gcj02tobd09 } from './coordtransform'
-// import { host } from '../config'
+import { host, qqmapKey } from '../config'
 
 const qqmap = new QQMapWX({
-    key: 'FPOBZ-UT2K2-ZFYUC-CX67E-IOOYS-7XFQ6'
+    key: qqmapKey
 });
 
 function resolveAdInfo(adInfo) {
