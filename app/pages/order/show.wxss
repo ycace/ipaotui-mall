@@ -1,4 +1,5 @@
 /* pages/order/show.wxss */
+@import './quasi.wxss';
 
 .tab {
   display: flex;
@@ -8,6 +9,7 @@
 }
 
 .tab__navbar {
+  position: relative;
   display: flex;
   color: #999;
   border-bottom: 1rpx solid #e8e8e8;
@@ -32,4 +34,113 @@
 
 .tab-swiper {
   flex: 1;
+}
+
+.tab__swiper-item {
+  position: absolute;
+  overflow: auto;
+}
+
+
+/* flow-list */
+.flow-item {
+  position: relative;
+  margin-left: 50px;
+  padding:  10px 0;
+}
+
+.flow-item:not(:first-child) {
+  border-top: 1rpx solid #e8e8e8;
+}
+
+.flow-item::before {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: #ff5801;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flow-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  height: 100%;
+  border-left: 2rpx solid #ff5801;
+  transform: translateX(-50%);
+}
+
+.flow-item__time {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #999;
+  font-size: 0.8em;
+}
+
+.flow-item__img {
+  position: absolute;
+  top: 50%;
+  left: -25px;
+  width:20px;
+  height: 20px;
+  border: 5px solid #fff;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+
+/* actionbar*/
+.actionbar {
+  display: flex;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  border-top: 1rpx solid #e8e8e8;
+}
+
+.actionbar-btn_action {
+  flex: 1;
+  line-height: 50px;
+  text-align: center;
+}
+
+.actionbar-btn_primary {
+  background-color: #ff5801;
+  color: #fff;
+}
+
+/* order-show_left-time*/
+.order-show__left-time {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  font-size: 0.8em;
+}
+
+.phone {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+}
+.phone__icon {
+  width: 26px;
+  height: 26px;
+}
+
+
+.tab__swiper-item_detail {
+  background-color: #f8f8f8;
+}
+
+.weui-cell__hd {
+  min-width: 5em;
+  color: #999;
 }

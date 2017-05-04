@@ -1,19 +1,5 @@
 //index.js
 //获取应用实例
-
-function countdown(that) {
-  var second = that.data.second
-  if (second <= 0) {
-    return
-  }
-  var time = setTimeout(function () {
-    console.log(second)
-    that.setData({
-      second: second - 1
-    });
-    countdown(that);
-  }, 1000)
-}
 var app = getApp()
 Page({
   data: {

@@ -23,6 +23,7 @@ page {
 }
 
 .trangle {
+  position: relative;
   padding-right: 15px;
 }
 

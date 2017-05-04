@@ -26,8 +26,8 @@
 
 .quasi-goods__img {
   margin-top: -2px;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   vertical-align: middle;
 }
 
@@ -46,6 +46,13 @@
 
 .quasi-goods__item-name {
   flex: 2;
+}
+
+.quasi-goods__item-name-icon {
+  margin: -2px 5px 0 0;
+  height: 21px;
+  width: 21px;
+  vertical-align: middle;
 }
 
 .quasi-goods__item-name_grey {

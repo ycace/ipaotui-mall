@@ -2,19 +2,141 @@
 <!--pages/order/show.wxml-->
 <view class="order-show-tab tab">
   <view class="tab__navbar">
-    <view class="tab__navbar-item tab__navbar-item_active">
+    <view bindtap="navChange" id="{{index}}" wx:for="{{tabNavs}}" wx:key="{{index}}" class="tab__navbar-item {{index == activeNavIndex?  'tab__navbar-item_active': ''}} ">
       订单状态
     </view>
-    <view class="tab__navbar-item">
-      订单详情
+    <view wx:if="{{info.localphone}}" class="phone">
+      <image class="phone__icon" src="/images/chat_phone_normal.png"></image>
     </view>
   </view>
-  <swiper class="tab-swiper" autoplay="{{false}}">
+  <swiper bindchange="tabChange" current="{{activeNavIndex}}" class="tab-swiper" autoplay="{{false}}">
     <swiper-item class="tab__swiper-item">
-      <view class="classname"></view>
+      <view class="flow-list">
+        <view wx:for="{{info.flow}}" wx:key="{{index}}" class="flow-item">
+          {{item.status}}
+          <image wx:if="{{item.state == info.state}}" src="{{statusImgs[item.state]}}" class="flow-item__img"></image>
+          <view class="flow-item__time">{{item.time}}</view>
+        </view>
+      </view>
+      <view wx:if="{{count > 0}}" class="order-show__left-time">
+        支付剩余时间
+        <text class="primary-color">{{countLabel}}</text>
+      </view>
+      <view class="actionbar">
+        <view class="actionbar-btn actionbar-btn_action">取消订单</view>
+        <view class="actionbar-btn actionbar-btn_action actionbar-btn_primary">立即付款</view>
+      </view>
     </swiper-item>
-    <swiper-item class="tab__swiper-item">
-      详情
+    <swiper-item class="tab__swiper-item tab__swiper-item_detail">
+      <view class="weui-cells__title">订单详情</view>
+      <view class="quasi-goods">
+        <view class="quasi-goods__hd weui-flex">
+          <navigator url="url" class=" trangle">
+            <image class="quasi-goods__img" src="/images/shop-512.png"></image>
+            {{info.seller_name}}
+          </navigator>
+          <view class=" weui-flex__item"></view>
+          <view class="grey-color">爱跑腿专送</view>
+        </view>
+        <view class="quasi-goods__bd">
+          <view class="quasi-goods__list">
+            <view wx:for="{{info.goods}}" wx:key="{{index}}" class="quasi-goods__item">
+              <view class="quasi-goods__item-name">{{item.goods_name}}</view>
+              <view class="quasi-goods__item-num">x{{item.num}}</view>
+              <view class="quasi-goods__item-price">¥{{item.price_sum}}</view>
+            </view>
+          </view>
+          <view class="quasi-goods__list">
+            <view class="quasi-goods__item">
+              <view class="quasi-goods__item-name">餐盒费</view>
+              <view class="quasi-goods__item-num"></view>
+              <view class="quasi-goods__item-price">¥{{info.packing_fee}}</view>
+            </view>
+            <view class="quasi-goods__item">
+              <view class="quasi-goods__item-name">配送费</view>
+              <view class="quasi-goods__item-num"></view>
+              <view class="quasi-goods__item-price">¥{{info.delivery_fee}}</view>
+            </view>
+          </view>
+          <view class="quasi-goods__list">
+            <view class="quasi-goods__item">
+              <view class="quasi-goods__item-name quasi-goods__item-name_grey">
+                <image class="quasi-goods__item-name-icon" src="/images/icon_jian.png"></image>商城优惠
+              </view>
+              <view class="quasi-goods__item-num"></view>
+              <view class="quasi-goods__item-price">-¥{{info.cut_money}}</view>
+            </view>
+          </view>
+          <view class="quasi-goods__list">
+            <view class="quasi-goods__item">
+              <view class="quasi-goods__item-name quasi-goods__item-name_grey">
+                总计¥{{info.order_price}} 优惠¥{{info.cut_money}}
+              </view>
+              <view class="quasi-goods__item-num"></view>
+              <view class="quasi-goods__item-price primary-color">
+                实付 ¥{{info.pay_price}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells__title">配送信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            期望时间
+          </view>
+          <view class="weui-cell__bd">立即配送</view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            配送地址
+          </view>
+          <view class="weui-cell__bd">
+            <view class="classname">
+              {{info.receiver}} {{info.receiver_phone}}
+            </view>
+            <view class="classname">
+              {{info.receiver_addr}}
+            </view>
+          </view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            配送服务
+          </view>
+          <view class="weui-cell__bd">
+            爱跑腿专送
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells__title">订单信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            订单号码
+          </view>
+          <view class="weui-cell__bd">
+            {{info.order_no}}
+          </view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            订单时间
+          </view>
+          <view class="weui-cell__bd">
+            {{info.add_time}}
+          </view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            支付方式
+          </view>
+          <view class="weui-cell__bd">
+            在线支付
+          </view>
+        </view>
+      </view>
     </swiper-item>
   </swiper>
 </view>
