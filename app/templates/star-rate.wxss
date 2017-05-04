@@ -1,7 +1,11 @@
 .star-rate {
     display: flex;
-    font-size: 16px;
+    font-size: 14px;
     color: #999;
+}
+
+.star-rate_mini {
+    font-size: 0.8em;
 }
 
 .star-rate__item_active {

@@ -1,6 +1,7 @@
 // pages/shop/show.js
 
-var sliderWidth = 96;
+import {makePhoneCall} from '../../utils/util'
+
 var initOrder = {
   totalNum: 0,
   totalPrice: 0,
@@ -12,10 +13,8 @@ var initOrder = {
 
 Page({
   data: {
-    tabs: ["商品", "评价"],
-    activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
+    tabs: ["商品", "评价", "商家"],
+    activeIndex: 2,
 
     activeMenuIndex: 0,
     showCart: false,
@@ -23,6 +22,78 @@ Page({
     showSubGoods: false,
 
     order: initOrder,
+
+    review: {
+      "list": [
+        {
+          "order_id": "1272",
+          "user_id": "4",
+          "seller_id": "1",
+          "service": "5",
+          "reach_time": "0",
+          "quality": "5",
+          "content": "",
+          "pic_url": null,
+          "time": "1488951898",
+          "nick": "te***",
+          "head_pic": null
+        },
+        {
+          "order_id": "1271",
+          "user_id": "4",
+          "seller_id": "1",
+          "service": "5",
+          "reach_time": "0",
+          "quality": "5",
+          "content": "123455",
+          "pic_url": null,
+          "time": "1488944987",
+          "nick": "te***",
+          "head_pic": null
+        },
+        {
+          "order_id": "1270",
+          "user_id": "4",
+          "seller_id": "1",
+          "service": "4",
+          "reach_time": "0",
+          "quality": "4",
+          "content": "hoohoo",
+          "pic_url": null,
+          "time": "1488944700",
+          "nick": "te***",
+          "head_pic": null
+        },
+        {
+          "order_id": "1267",
+          "user_id": "4",
+          "seller_id": "1",
+          "service": "5",
+          "reach_time": "0",
+          "quality": "5",
+          "content": "hoho",
+          "pic_url": null,
+          "time": "1488936939",
+          "nick": "te***",
+          "head_pic": null
+        },
+        {
+          "order_id": "1266",
+          "user_id": "5",
+          "seller_id": "1",
+          "service": "5",
+          "reach_time": "0",
+          "quality": "5",
+          "content": "",
+          "pic_url": "",
+          "time": "1488863802",
+          "nick": "te***",
+          "head_pic": null
+        }
+      ],
+      "count": 10,
+      "page": 0
+    },
 
     info: {
       "seller_id": "2",
@@ -44,9 +115,9 @@ Page({
       "reserve_day": "0",
       "min_price": "5",
       "sales": "74",
-      "service": "0.0",
-      "quality": "0.0",
-      "overall": "0.0",
+      "service": "4.2",
+      "quality": "3.5",
+      "overall": "4.5",
       "distance": "20434",
       "delivery_fee": 45,
       "favorite": "0",
@@ -554,7 +625,6 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.initTab()
   },
   onReady: function () {
     // 页面渲染完成
@@ -582,9 +652,15 @@ Page({
   },
   tabClick: function (e) {
     this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+  },
+
+  swiperChange(e) {
+    var {current} = e.detail
+    this.setData({
+      activeIndex: current
+    })
   },
   menuClick: function (e) {
     this.setData({
@@ -773,5 +849,9 @@ Page({
     this.setData({
       activeSubGoods
     })
+  },
+  onPhoneTap(e) {
+    var {phone} = e.currentTarget.dataset
+    makePhoneCall(phone)
   }
 })

@@ -1,4 +1,5 @@
 /* pages/shop/show.wxss */
+@import '/templates/star-rate.wxss';
 @import './templates/goods-actions.wxss';
 @import './templates/cart-box.wxss';
 @import './templates/sub-goods.wxss';
@@ -30,9 +31,6 @@
   border-radius: 50%;
 }
 
-.weui-cell__ft_in-access::after {
-  border-color: #fff;
-}
 
 .promotion {
   position: relative;
@@ -77,6 +75,26 @@
   left: 0;
   right: 0;
   height: 100%;
+}
+
+
+/* navbar */
+.weui-navbar__item {
+  position: relative;
+  color: #999;
+}
+
+.weui-navbar__item.weui-bar__item_on {
+  color: #000;
+  font-weight: 400;
+}
+.weui-bar__item_on::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  bottom: -1rpx;
+  width: 80%;
+  border-bottom: 5rpx solid #ff5801;
 }
 
 /* menu-tab */
@@ -213,4 +231,118 @@
 .menu-cart__price {
   color: #ff5801;
   font-size: 1.2em;
+}
+
+/* weui-tab__content_review */
+.weui-tab__content {
+  overflow: auto;
+}
+.weui-tab__content_review {
+  background-color: #f8f8f8;
+}
+
+.shop-rate {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #fff;
+}
+
+.shop-rate__overall {
+  flex: 2;
+  border-right: 1rpx solid #e8e8e8;
+}
+
+.shop-rate__overall-num {
+  font-size: 2em;
+  color: #ff5801;
+}
+.shop-rate__score {
+  flex: 3;
+  
+}
+
+.shop-rate__score-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shop-rate__score-item-label {
+  margin-right: 5px;
+}
+.shop-rate__score-item-num {
+  margin-left: 5px;
+  color: #ff5801;
+}
+
+/*shop-review*/
+.shop-review {
+  margin-top: 10px;
+  background-color: #fff;
+}
+.review-item {
+  display: flex;
+  padding: 5px 8px;
+}
+.review-item:not(:last-child) {
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.review-item__head-img {
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  border: 1rpx solid #e8e8e8;
+  border-radius: 50%;
+}
+.review-item__content {
+  flex: 1;
+}
+
+.review-item__hd {
+  position: relative;
+}
+
+.review-item__reach-time {
+  margin-left: 5px;
+}
+.review-item__add-time {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+  color: #999;
+  font-size: 0.8em;
+}
+
+.review-item__bd {
+  padding: 5px 0;
+}
+
+/*weui-tab__content_info*/
+.weui-tab__content_info {
+  background-color: #f8f8f8;
+}
+
+.weui-cell__hd_info {
+  min-width: 5em;
+  color: #999;
+}
+
+.info__promotion-img {
+  margin:-2px 5px 0 0;
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
+}
+
+.info__promotion-list {
+  font-size: 14px;
+}
+
+.info__phone-icon {
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
 }

@@ -90,10 +90,4 @@ button[type="primary"][disabled] {
   padding: 0 15px;
 }
 
-.weui-navbar__item.weui-bar__item_on {
-  color: #ff5801;
-}
 
-.weui-navbar__slider {
-  background-color: #ff5801;
-}

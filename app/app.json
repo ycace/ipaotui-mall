@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/shop/show",
     "pages/order/show",
     "pages/order/quasi",
     "pages/order/list",
@@ -7,7 +8,6 @@
     "pages/address/list",
     "pages/address/add",
     "pages/address/select",
-    "pages/shop/show",
     "pages/mine/mine",
     "pages/index/address",
     "pages/shop/category",

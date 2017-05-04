@@ -1,5 +1,5 @@
 <template name="star-rate">
-  <view class="star-rate">
+  <view class="star-rate {{mini && 'star-rate_mini'}}">
     <view wx:for="{{count || 5}}"  wx:key="item" class="star-rate__item {{value > item ? 'star-rate__item_active': ''}}">★</view>
   </view>
 </template>

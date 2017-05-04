@@ -146,6 +146,19 @@ export function confirm(options) {
     })
 }
 
+// 拨打电话
+export function makePhoneCall(phoneNum) {
+    confirm({
+        content: `是否拨打电话 ${phoneNum}`,
+        confirmText: '拨打',
+        ok() {
+            wx.makePhoneCall({
+                phoneNumber: phoneNum,
+            })
+        }
+    })
+}
+
 // 加载提示
 export function showLoading() {
     wx.showToast({
