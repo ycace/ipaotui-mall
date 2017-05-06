@@ -1,4 +1,5 @@
 <import src="/templates/star-rate.wxml" />
+<import src="/templates/load-more.wxml" />
 <import src="templates/goods-actions.wxml" />
 <import src="templates/cart-box.wxml" />
 <import src="templates/sub-goods.wxml" />
@@ -15,7 +16,7 @@
           <view class="weui-media-box__title">{{info.seller_name}}</view>
           <view class="weui-media-box__desc shop-info__desc">
             <view>
-              {{info.min_price}}元起送 | {{info.reach_time}}分钟 | 距离{{info.distance / 1000}}km
+              {{info.min_price}}元起送 | {{info.reach_time}}分钟 | 距离{{info.distanceFormat}}km
             </view>
             <view wx:if="{{info.notice}}">
               公告: {{info.notice}}
@@ -93,46 +94,49 @@
           </view>
         </swiper-item>
         <swiper-item class="weui-tab__content weui-tab__content_review">
-          <view class="shop-rate">
-            <view class="shop-rate__overall">
-              <view class="shop-rate__overall-num">{{info.overall}}</view>
-              <view class="classname">综合评分</view>
-            </view>
-            <view class="shop-rate__score">
-              <view class="shop-rate__score-item">
-                <view class="shop-rate__score-item-label">商家评分</view>
-                <template is="star-rate" data="{{value: info.quality}}"></template>
-                <view class="shop-rate__score-item-num">{{info.quality}}</view>
+          <scroll-view class="scroll-view_review" enable-back-to-top="true" bindscrolltolower="onScrolltolower" scroll-y="true">
+            <view class="shop-rate">
+              <view class="shop-rate__overall">
+                <view class="shop-rate__overall-num">{{info.overall}}</view>
+                <view class="classname">综合评分</view>
               </view>
-              <view class="shop-rate__score-item">
-                <view class="shop-rate__score-item-label">配送评分</view>
-                <template is="star-rate" data="{{value: info.service}}"></template>
-                <view class="shop-rate__score-item-num">{{info.service}}</view>
-              </view>
-            </view>
-          </view>
-          <view class="shop-review">
-            <view class="review-list">
-              <view wx:for="{{review.list}}" wx:key="order_id" class="review-item">
-                <view class="">
-                  <image class="review-item__head-img" src="{{item.head_pic || '/images/default-image.png'}}"></image>
+              <view class="shop-rate__score">
+                <view class="shop-rate__score-item">
+                  <view class="shop-rate__score-item-label">商家评分</view>
+                  <template is="star-rate" data="{{value: info.quality}}"></template>
+                  <view class="shop-rate__score-item-num">{{info.quality}}</view>
                 </view>
-                <view class="review-item__content">
-                  <view class="review-item__hd">
-                    <view class="review-item__add-time">{{item.time}}</view>
-                    <view class="review-item__nick">{{item.nick}}</view>
-                    <view class="weui-flex">
-                      <template is="star-rate" data="{{value: item.quality, mini: true}}"></template>
-                      <view class="review-item__reach-time text-small grey-color">及时到达</view>
+                <view class="shop-rate__score-item">
+                  <view class="shop-rate__score-item-label">配送评分</view>
+                  <template is="star-rate" data="{{value: info.service}}"></template>
+                  <view class="shop-rate__score-item-num">{{info.service}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="shop-review">
+              <view class="review-list">
+                <view wx:for="{{review.list}}" wx:key="{{index}}" class="review-item">
+                  <view class="">
+                    <image class="review-item__head-img" src="{{item.head_pic || '/images/default-image.png'}}"></image>
+                  </view>
+                  <view class="review-item__content">
+                    <view class="review-item__hd">
+                      <view class="review-item__add-time">{{item.timeFormat}}</view>
+                      <view class="review-item__nick">{{item.nick}}</view>
+                      <view class="weui-flex">
+                        <template is="star-rate" data="{{value: item.quality, mini: true}}"></template>
+                        <view class="review-item__reach-time text-small grey-color">及时到达</view>
+                      </view>
+                    </view>
+                    <view class="review-item__bd">
+                      {{item.content}}
                     </view>
                   </view>
-                  <view class="review-item__bd">
-                    {{item.content}}
-                  </view>
                 </view>
               </view>
             </view>
-          </view>
+            <template is="load-more" data="{{loading: review.loading, hasMore: review.hasMore}}"></template>
+          </scroll-view>
         </swiper-item>
         <swiper-item class="weui-tab__content weui-tab__content_info">
           <block wx:if="{{info.promotion.length > 0}}">
@@ -169,7 +173,6 @@
               </view>
               <view class="weui-cell__bd">{{info.address}}</view>
             </view>
-
             <view class="weui-cell">
               <view class="weui-cell__hd weui-cell__hd_info">
                 营业时间

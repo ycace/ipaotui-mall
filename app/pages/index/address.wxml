@@ -1,2 +1,55 @@
+
 <!--pages/index/address.wxml-->
-<text>pages/index/address.wxml</text>
+<view class="container">
+  <view class="search-box">
+    <view class="search-box__input-wrap">
+      <icon bindtap="clearSearchKey" wx:if="{{searchKey}}" type="clear" class="search-box__input-clear" />
+      <input bindinput="onSearchInput" value="{{searchKey}}" class="search-box__input" placeholder="请输入您的收货地址" />
+    </view>
+    <button class="weui-btn mini-btn weui-btn_search" type="primary" size="mini">搜索</button>
+  </view>
+  <view wx:if="{{showSearchList}}" class="content">
+    <view class="search-list">
+      <view bindtap="onSearchItemTap" id="{{index}}" wx:for="{{searchList}}" wx:key="{{index}}" class="search-item">
+        <view class="search-item__name">
+          <text class="{{item.isKeyword ? 'primary-color': ''}}" wx:for="{{item.titleSplit}}" wx:key="{{index}}">{{item.text}}</text>
+        </view>
+        <view class="search-item__address">{{item.address}}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="content">
+    <view class="address-box">
+      <view class="address-box__title">
+        <image class="address-box__title-img" src="/images/takeout_ic_account.png"></image> 您的收货地址
+      </view>
+      <view class="address-list">
+        <view wx:for="{{addressList}}" wx:key="addr_id" class="address-item">
+          <view class="address-item__addr">{{item.addr}}</view>
+          <view class="address-item__name grey-color text-small">
+            {{item.receiver}} {{item.phone}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="address-box">
+      <view class="address-box__title">
+        <image class="address-box__title-img" src="/images/takeout_ic_address.png"></image> 定位地址
+      </view>
+      <view class="address-list">
+        <view wx:for="{{poiList}}" wx:key="{{index}}" class="address-item">
+          <view class="address-item__addr">{{item.title}}</view>
+          <block wx:if="{{index == 0}}">
+            <view class="grey-color text-small">
+              当前定位地址
+            </view>
+            <view bindtap="reLocate" class="re-locate">
+              <image class="re-locate__img" src="/images/location-arrow.png"></image>
+              <view class="primary-color text-small">{{reLocateLabel}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

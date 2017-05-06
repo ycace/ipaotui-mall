@@ -1,5 +1,6 @@
 /* pages/shop/show.wxss */
 @import '/templates/star-rate.wxss';
+@import '/templates/load-more.wxss';
 @import './templates/goods-actions.wxss';
 @import './templates/cart-box.wxss';
 @import './templates/sub-goods.wxss';
@@ -239,6 +240,9 @@
 }
 .weui-tab__content_review {
   background-color: #f8f8f8;
+}
+.scroll-view_review{
+  height: 100%;
 }
 
 .shop-rate {

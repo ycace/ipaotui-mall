@@ -36,7 +36,7 @@ export function reverseGeocoder(options) {
 }
 
 // 获取当前地理位置
-export function getCurrentAddress(options) {
+export function getCurrentAddressList(options) {
     const {
         success, complete
     } = options
@@ -50,9 +50,75 @@ export function getCurrentAddress(options) {
                 },
                 success, complete
             })
+        },
+        fail(e) {
+            console.log(res.errMsg)
+            alert('获取用户地址失败')
         }
     })
 }
+
+// 地点搜索
+export function searchAddressList(options) {
+    const {
+        keyword, success
+    } = options
+    getCurrentCity(function (cityName) {
+        qqmap.getSuggestion({
+            region: cityName,
+            keyword,
+            success(res) {
+                success && success(res.data)
+            }
+        })
+    })
+}
+
+// 获取当期地址
+var currentAddress;
+export function getCurrentAddress(callback) {
+    if(currentAddress) {
+        return callback && callback(currentAddress) 
+    }
+
+    getCurrentAddressList({
+        success(addressList) {
+            if(addressList.length > 0) {
+                currentAddress = addressList[0]
+                callback(currentAddress)
+            }
+        }
+    })
+}
+
+
+// 获取当前城市
+var cityName;
+export function getCurrentCity(callback) {
+    if (cityName) {
+        return callback && callback(cityName)
+    }
+    wx.getLocation({
+        type: 'gcj02',
+        success(res) {
+            qqmap.reverseGeocoder({
+                location: {
+                    longitude: res.longitude,
+                    latitude: res.latitude
+                },
+                success: function (res) {
+                    cityName = res.result.address_component.city
+                    callback && callback(cityName)
+                }
+            })
+        },
+        fail(res) {
+            console.log(res.errMsg)
+            alert('获取用户地址失败')
+        }
+    })
+}
+
 
 // 根据坐标获取地址信息
 export function getAddressFromLocation(options) {
@@ -60,15 +126,17 @@ export function getAddressFromLocation(options) {
     getPois({
         location,
         success(pois) {
-            var poi = pois[0]
-            if (poi) {
-                var address = Object.assign({
-                    address_name: poi.title,
-                    location,
-                }, resolveAdInfo(poi.ad_info))
-
-                success && success(address)
-            }
+            var addressList = []
+            pois.forEach(poi => {
+                var {
+                    title, location,
+                    address, ad_info
+                } = poi
+                addressList.push(Object.assign({
+                    title, location, address
+                }, resolveAdInfo(ad_info)))
+            })
+            success && success(addressList)
         }
     })
 }
@@ -100,7 +168,7 @@ export function fetch(options) {
     wx.request({
         url: `https://${host}/${options.url}`,
         data: Object.assign(options.data, {
-            'app_v': 'ipaotui_mini'
+            'app_v': 'ipaotui_mall'
         }),
         method: options.method || 'POST',
         header: {
@@ -179,8 +247,18 @@ export function datetimeFormat(unix_timestamp) {
 
 // 坐标格式化
 export function coordFormat(location) {
+    if(location.lat && location.lng) {
+        location = {
+            longitude: location.lng,
+            latitude: location.lat
+        }
+    }
     // gcj02 转 bd09
-    return gcj02tobd09(location.longitude, location.latitude).join(',')
+    var location =  gcj02tobd09(location.longitude, location.latitude)
+    return {
+        longitude: location[0],
+        latitude: location[1]
+    }
 }
 
 // 倒计时格式化
@@ -189,4 +267,28 @@ export function countdownFormat(count) {
     count = Math.floor(count / 60)
     var minutes = count % 60
     return `${minutes}分钟${seconds}秒`
+}
+
+// 字符串关键字分组
+
+export function splitByKeyword(text, keyword) {
+    if (!text) {
+        return []
+    }
+    var arr = text.split(keyword)
+    var res = []
+    res.push({
+        text: arr[0],
+        isKeyword: false
+    })
+    for (let i = 1, len = arr.length; i < len; i++) {
+        res.push({
+            text: keyword,
+            isKeyword: true
+        }, {
+                text: arr[i],
+                isKeyword: false
+            })
+    }
+    return res
 }

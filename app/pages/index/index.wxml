@@ -1,10 +1,10 @@
 <import src="/templates/star-rate.wxml" />
+<import src="/templates/load-more.wxml" />
 
 <!--index.wxml-->
 <view class="topbar">
   <view class="address trangle">
-    <image class="address__icon" src="/images/location.png"></image>
-    电商大厦电商大厦(兴区路)
+    <image class="address__icon" src="/images/location.png"></image>{{currentAddress ? currentAddress.title : '定位中...'}}
   </view>
   <view class="search">
     <icon type="search" size="20" /> 搜索
@@ -19,9 +19,8 @@
   </navigator>
 </view>
 <view class="weui-panel weui-panel_access">
-  <view class="weui-panel__hd">推荐商家</view>
   <view class="weui-panel__bd shop__list">
-    <navigator url="" wx:for="{{shop}}" wx:key="{{seller_id}}" class="weui-media-box weui-media-box_appmsg shop__item" hover-class="weui-cell_active">
+    <navigator url="/pages/shop/show?id={{item.seller_id}}" wx:for="{{shopList}}" wx:key="{{seller_id}}" class="weui-media-box weui-media-box_appmsg shop__item" hover-class="weui-cell_active">
       <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
         <image class="weui-media-box__thumb" src="{{item.pic_url}}" />
       </view>
@@ -39,7 +38,7 @@
             <view class="shop__fee weui-flex__item">
               起送 ¥{{item.min_price}}
             </view>
-            <text class="shop__reach-time grey-color">{{item.distance/1000}}km</text> |
+            <text class="shop__reach-time grey-color">{{item.distanceFormat}}km</text> |
             <text class="shop__reach-time primary-color">{{item.reach_time}}分钟</text>
           </view>
         </view>
@@ -53,3 +52,4 @@
     </navigator>
   </view>
 </view>
+<template is="load-more" data="{{loading: loading, hasMore: hasMore, noMoreLabel: '更多商家接入中, 敬请期待'}}"></template>

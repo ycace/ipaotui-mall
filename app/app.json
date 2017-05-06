@@ -1,15 +1,15 @@
 {
   "pages": [
-    "pages/mine/mine",
-    "pages/shop/show",
     "pages/index/index",
+    "pages/shop/show",
+    "pages/index/address",
+    "pages/mine/mine",
     "pages/order/show",
     "pages/order/quasi",
     "pages/order/list",
     "pages/address/list",
     "pages/address/add",
     "pages/address/select",
-    "pages/index/address",
     "pages/shop/category",
     "pages/shop/search"
   ],

@@ -1,6 +1,13 @@
 //index.js
 //获取应用实例
-var app = getApp()
+import {
+  getCurrentAddress
+} from '../../utils/util'
+
+import {
+  getSellers
+} from '../../utils/apis'
+
 Page({
   data: {
     category: [
@@ -45,81 +52,59 @@ Page({
         "icon": "/images/category/8.png"
       }
     ],
-    shop: [
-      {
-        "seller_id": "2",
-        "seller_name": "鲜极道",
-        "state": "1",
-        "city_id": "330300",
-        "address": "温州龙湾区衢江路2011号",
-        "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller/20170314/1489479032148947903230424.png",
-        "pic_hd": "http://mtest.ipaotui.com/Uploadfile/Img/seller/20170314/hd_1489479032148947903230424.png",
-        "longitude": "120.748973",
-        "latitude": "27.984401",
-        "phone": "88888888",
-        "start_sell_time": "08:00:00",
-        "end_sell_time": "09:00:00",
-        "sell_time": "08:00-20:00,08:00-20:00",
-        "is_rest": "0",
-        "notice": "东池便当，好吃西",
-        "reach_time": "30",
-        "reserve_day": "0",
-        "min_price": "5",
-        "sales": "73",
-        "service": "0.0",
-        "quality": "0.0",
-        "overall": "0.0",
-        "distance": "11",
-        "favorite": "0",
-        "promotion": [
-          {
-            "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_promotion/first_cut.png",
-            "info": "新用户在线支付满15元减10元,满20元减13元"
-          },
-          {
-            "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_promotion/cut.png",
-            "info": "在线支付满15元减5元,满20元减8元"
-          }
-        ]
-      },
-      {
-        "seller_id": "24",
-        "seller_name": "测试",
-        "state": "1",
-        "city_id": "330300",
-        "address": "skldfjhkls",
-        "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller/1468462647146846264750782.jpg",
-        "pic_hd": "http://mtest.ipaotui.com/Uploadfile/Img/seller/hd_1468462647146846264750782.jpg",
-        "longitude": "120.70507",
-        "latitude": "28.003041",
-        "phone": "13900000000",
-        "start_sell_time": "08:00:00",
-        "end_sell_time": "22:00:00",
-        "sell_time": "08:00-22:00",
-        "is_rest": "0",
-        "notice": null,
-        "reach_time": "30",
-        "reserve_day": "0",
-        "min_price": "5",
-        "sales": "0",
-        "service": "0.0",
-        "quality": "0.0",
-        "overall": "0.0",
-        "distance": "4784",
-        "favorite": "0",
-        "promotion": []
-      },
-    ]
+    page: 0,
+    hasMore: true,
+    loading: false
   },
   onLoad: function () {
-    console.log('onLoad')
+    this.initAddress()
+  },
+
+  initAddress() {
     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
+    getCurrentAddress(function(address) {
       that.setData({
-        userInfo: userInfo
+        currentAddress: address
       })
+      that.loadData()
     })
-  }
+  },
+  loadData() {
+    if (this.data.loading) {
+      return;
+    }
+    var that = this
+    var {
+      page, currentAddress,
+    } = this.data
+
+    this.setData({
+      loading: true
+    })
+    getSellers({
+      page,
+      address: currentAddress,
+      success(data) {
+        var {
+          shopList
+        } = that.data
+
+        var list = data.list.map(item => {
+          item['distanceFormat'] = (item.distance / 1000).toFixed(2)
+          return item
+        })
+        that.setData({
+          shopList: shopList ? shopList.concat(list) : list,
+          page: page + 1,
+          hasMore: data.count == 10,
+          loading: false
+        })
+      }
+    })
+  },
+  onReachBottom(e) {
+    if (this.data.hasMore) {
+      this.loadData()
+    }
+  },
 })

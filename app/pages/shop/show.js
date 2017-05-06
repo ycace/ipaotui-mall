@@ -1,6 +1,16 @@
 // pages/shop/show.js
 
-import {makePhoneCall} from '../../utils/util'
+import {
+  makePhoneCall,
+  getCurrentAddress,
+  datetimeFormat
+} from '../../utils/util'
+
+import {
+  getSellerInfo,
+  getReviews
+} from '../../utils/apis'
+
 
 var initOrder = {
   totalNum: 0,
@@ -14,7 +24,7 @@ var initOrder = {
 Page({
   data: {
     tabs: ["商品", "评价", "商家"],
-    activeIndex: 1,
+    activeIndex: 0,
 
     activeMenuIndex: 0,
     showCart: false,
@@ -24,607 +34,18 @@ Page({
     order: initOrder,
 
     review: {
-      "list": [
-        {
-          "order_id": "1272",
-          "user_id": "4",
-          "seller_id": "1",
-          "service": "5",
-          "reach_time": "0",
-          "quality": "5",
-          "content": "",
-          "pic_url": null,
-          "time": "1488951898",
-          "nick": "te***",
-          "head_pic": null
-        },
-        {
-          "order_id": "1271",
-          "user_id": "4",
-          "seller_id": "1",
-          "service": "5",
-          "reach_time": "0",
-          "quality": "5",
-          "content": "123455",
-          "pic_url": null,
-          "time": "1488944987",
-          "nick": "te***",
-          "head_pic": null
-        },
-        {
-          "order_id": "1270",
-          "user_id": "4",
-          "seller_id": "1",
-          "service": "4",
-          "reach_time": "0",
-          "quality": "4",
-          "content": "hoohoo",
-          "pic_url": null,
-          "time": "1488944700",
-          "nick": "te***",
-          "head_pic": null
-        },
-        {
-          "order_id": "1267",
-          "user_id": "4",
-          "seller_id": "1",
-          "service": "5",
-          "reach_time": "0",
-          "quality": "5",
-          "content": "hoho",
-          "pic_url": null,
-          "time": "1488936939",
-          "nick": "te***",
-          "head_pic": null
-        },
-        {
-          "order_id": "1266",
-          "user_id": "5",
-          "seller_id": "1",
-          "service": "5",
-          "reach_time": "0",
-          "quality": "5",
-          "content": "",
-          "pic_url": "",
-          "time": "1488863802",
-          "nick": "te***",
-          "head_pic": null
-        }
-      ],
-      "count": 10,
-      "page": 0
+      hasMore: true,
+      loading: false,
+      page: 0,
     },
 
-    info: {
-      "seller_id": "2",
-      "seller_name": "鲜极道",
-      "state": "1",
-      "city_id": "330300",
-      "address": "温州龙湾区衢江路2011号",
-      "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller/20170314/1489479032148947903230424.png",
-      "pic_hd": "http://mtest.ipaotui.com/Uploadfile/Img/seller/20170314/hd_1489479032148947903230424.png",
-      "longitude": "120.748973",
-      "latitude": "27.984401",
-      "phone": "88888888",
-      "start_sell_time": "08:00:00",
-      "end_sell_time": "09:00:00",
-      "sell_time": "08:00-20:00,08:00-20:00",
-      "is_rest": "0",
-      "notice": "东池便当，好吃西",
-      "reach_time": "30",
-      "reserve_day": "0",
-      "min_price": "5",
-      "sales": "74",
-      "service": "4.2",
-      "quality": "3.5",
-      "overall": "4.5",
-      "distance": "20434",
-      "delivery_fee": 45,
-      "favorite": "0",
-      "promotion": [
-        {
-          "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_promotion/first_cut.png",
-          "info": "新用户在线支付满15元减10元,满20元减13元"
-        },
-        {
-          "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_promotion/cut.png",
-          "info": "在线支付满15元减5元,满20元减8元"
-        }
-      ],
-      "menus": [
-        {
-          "menu_id": "10",
-          "menu_name": "热销排行",
-          "seller_id": "2",
-          "sort": "0",
-          "is_use": "1",
-          "goods": "29,32,31,30,46",
-          "goods2": [
-            {
-              "goods_id": "29",
-              "goods_name": "鸡腿饭",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461034075146103407535640.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461034075146103407535640.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461034075146103407535640.jpg",
-              "detail": "鸡腿饭 xx",
-              "price": "22.00",
-              "packing_fee": "2.00",
-              "sales": "46",
-              "praise": "0",
-              "stock": "76",
-              "sub_goods": [
-                {
-                  "sub_id": "50",
-                  "sub_name": "大",
-                  "price": "22.98",
-                  "packing_fee": "2.00",
-                  "stock": "74"
-                },
-                {
-                  "sub_id": "51",
-                  "sub_name": "小",
-                  "price": "22.00",
-                  "packing_fee": "2.00",
-                  "stock": "76"
-                }
-              ]
-            },
-            {
-              "goods_id": "32",
-              "goods_name": "鸡翅饭",
-              "seller_id": "2",
-              "pic_url": null,
-              "pic_hd1": null,
-              "pic_hd2": null,
-              "detail": "鸡翅饭 xx",
-              "price": "20.00",
-              "packing_fee": "2.00",
-              "sales": "41",
-              "praise": "0",
-              "stock": "59",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "31",
-              "goods_name": "招牌饭",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461033463146103346359875.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461033463146103346359875.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461033463146103346359875.jpg",
-              "detail": "招牌饭 xx",
-              "price": "20.00",
-              "packing_fee": "0.00",
-              "sales": "14",
-              "praise": "0",
-              "stock": "86",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "30",
-              "goods_name": "排骨饭",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461034058146103405829482.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461034058146103405829482.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461034058146103405829482.jpg",
-              "detail": "排骨饭 xx",
-              "price": "20.00",
-              "packing_fee": "0.00",
-              "sales": "10",
-              "praise": "0",
-              "stock": "0",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "46",
-              "goods_name": "香肠2",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1466411009146641100940750.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1466411009146641100940750.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1466411009146641100940750.jpg",
-              "detail": "",
-              "price": "2.00",
-              "packing_fee": "0.00",
-              "sales": "13",
-              "praise": "0",
-              "stock": "187",
-              "sub_goods": []
-            }
-          ]
-        },
-        {
-          "menu_id": "11",
-          "menu_name": "便当",
-          "seller_id": "2",
-          "sort": "0",
-          "is_use": "1",
-          "goods": "29,33,32,31,30,46",
-          "goods2": [
-            {
-              "goods_id": "29",
-              "goods_name": "鸡腿饭",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461034075146103407535640.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461034075146103407535640.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461034075146103407535640.jpg",
-              "detail": "鸡腿饭 xx",
-              "price": "22.00",
-              "packing_fee": "2.00",
-              "sales": "46",
-              "praise": "0",
-              "stock": "76",
-              "sub_goods": [
-                {
-                  "sub_id": "50",
-                  "sub_name": "大",
-                  "price": "22.98",
-                  "packing_fee": "2.00",
-                  "stock": "74"
-                },
-                {
-                  "sub_id": "51",
-                  "sub_name": "小",
-                  "price": "22.00",
-                  "packing_fee": "2.00",
-                  "stock": "76"
-                }
-              ]
-            },
-            {
-              "goods_id": "33",
-              "goods_name": "香肠饭",
-              "seller_id": "2",
-              "pic_url": null,
-              "pic_hd1": null,
-              "pic_hd2": null,
-              "detail": "香肠饭 xx",
-              "price": "20.00",
-              "packing_fee": "0.00",
-              "sales": "0",
-              "praise": "0",
-              "stock": "100",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "32",
-              "goods_name": "鸡翅饭",
-              "seller_id": "2",
-              "pic_url": null,
-              "pic_hd1": null,
-              "pic_hd2": null,
-              "detail": "鸡翅饭 xx",
-              "price": "20.00",
-              "packing_fee": "0.00",
-              "sales": "41",
-              "praise": "0",
-              "stock": "59",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "31",
-              "goods_name": "招牌饭",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461033463146103346359875.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461033463146103346359875.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461033463146103346359875.jpg",
-              "detail": "招牌饭 xx",
-              "price": "20.00",
-              "packing_fee": "0.00",
-              "sales": "14",
-              "praise": "0",
-              "stock": "86",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "30",
-              "goods_name": "排骨饭",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461034058146103405829482.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461034058146103405829482.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461034058146103405829482.jpg",
-              "detail": "排骨饭 xx",
-              "price": "20.00",
-              "packing_fee": "0.00",
-              "sales": "10",
-              "praise": "0",
-              "stock": "0",
-              "sub_goods": []
-            },
-            {
-              "goods_id": "46",
-              "goods_name": "香肠2",
-              "seller_id": "2",
-              "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1466411009146641100940750.jpg",
-              "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1466411009146641100940750.jpg",
-              "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1466411009146641100940750.jpg",
-              "detail": "",
-              "price": "2.00",
-              "packing_fee": "0.00",
-              "sales": "13",
-              "praise": "0",
-              "stock": "187",
-              "sub_goods": []
-            }
-          ]
-        },
-      ],
-      "goods_map": {
-        "29": {
-          "goods_id": "29",
-          "goods_name": "鸡腿饭",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461034075146103407535640.jpg",
-          "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461034075146103407535640.jpg",
-          "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461034075146103407535640.jpg",
-          "detail": "鸡腿饭 xx",
-          "price": "22.00",
-          "packing_fee": "2.00",
-          "sales": "46",
-          "praise": "0",
-          "stock": "76",
-          "sub_goods": [
-            {
-              "sub_id": "50",
-              "sub_name": "大",
-              "price": "22.98",
-              "packing_fee": "2.00",
-              "stock": "74"
-            },
-            {
-              "sub_id": "51",
-              "sub_name": "小",
-              "price": "22.00",
-              "packing_fee": "2.00",
-              "stock": "76"
-            }
-          ],
-          "sub_goods_map": {
-            "50": {
-              "sub_id": "50",
-              "sub_name": "大",
-              "price": "22.98",
-              "packing_fee": "2.00",
-              "stock": "74"
-            },
-            "51": {
-              "sub_id": "51",
-              "sub_name": "小",
-              "price": "22.00",
-              "packing_fee": "2.00",
-              "stock": "76"
-            }
-          }
-        },
-        "30": {
-          "goods_id": "30",
-          "goods_name": "排骨饭",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461034058146103405829482.jpg",
-          "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461034058146103405829482.jpg",
-          "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461034058146103405829482.jpg",
-          "detail": "排骨饭 xx",
-          "price": "20.00",
-          "packing_fee": "0.00",
-          "sales": "10",
-          "praise": "0",
-          "stock": "0",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "31": {
-          "goods_id": "31",
-          "goods_name": "招牌饭",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1461033463146103346359875.jpg",
-          "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1461033463146103346359875.jpg",
-          "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1461033463146103346359875.jpg",
-          "detail": "招牌饭 xx",
-          "price": "20.00",
-          "packing_fee": "0.00",
-          "sales": "15",
-          "praise": "0",
-          "stock": "85",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "32": {
-          "goods_id": "32",
-          "goods_name": "鸡翅饭",
-          "seller_id": "2",
-          "pic_url": null,
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "鸡翅饭 xx",
-          "price": "20.00",
-          "packing_fee": "0.00",
-          "sales": "43",
-          "praise": "0",
-          "stock": "57",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "33": {
-          "goods_id": "33",
-          "goods_name": "香肠饭",
-          "seller_id": "2",
-          "pic_url": null,
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "香肠饭 xx",
-          "price": "20.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "34": {
-          "goods_id": "34",
-          "goods_name": "咸蛋",
-          "seller_id": "2",
-          "pic_url": null,
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "咸蛋 xx",
-          "price": "20.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "35": {
-          "goods_id": "35",
-          "goods_name": "可乐",
-          "seller_id": "2",
-          "pic_url": null,
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "可乐 xx",
-          "price": "3.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "36": {
-          "goods_id": "36",
-          "goods_name": "雪碧",
-          "seller_id": "2",
-          "pic_url": null,
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "雪碧 xx",
-          "price": "3.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "37": {
-          "goods_id": "37",
-          "goods_name": "香肠",
-          "seller_id": "2",
-          "pic_url": null,
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "香肠 xx",
-          "price": "3.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "40": {
-          "goods_id": "40",
-          "goods_name": "香蕉",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/",
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "",
-          "price": "6.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "41": {
-          "goods_id": "41",
-          "goods_name": "香蕉2",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/",
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "",
-          "price": "6.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "42": {
-          "goods_id": "42",
-          "goods_name": "香蕉3",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/",
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "",
-          "price": "6.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "43": {
-          "goods_id": "43",
-          "goods_name": "香蕉3",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/",
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "",
-          "price": "6.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "44": {
-          "goods_id": "44",
-          "goods_name": "香蕉3",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/",
-          "pic_hd1": null,
-          "pic_hd2": null,
-          "detail": "",
-          "price": "6.00",
-          "packing_fee": "0.00",
-          "sales": "0",
-          "praise": "0",
-          "stock": "100",
-          "sub_goods": [],
-          "sub_goods_map": []
-        },
-        "46": {
-          "goods_id": "46",
-          "goods_name": "香肠2",
-          "seller_id": "2",
-          "pic_url": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/1466411009146641100940750.jpg",
-          "pic_hd1": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd1_1466411009146641100940750.jpg",
-          "pic_hd2": "http://mtest.ipaotui.com/Uploadfile/Img/seller_goods/hd2_1466411009146641100940750.jpg",
-          "detail": "",
-          "price": "2.00",
-          "packing_fee": "0.00",
-          "sales": "13",
-          "praise": "0",
-          "stock": "187",
-          "sub_goods": [],
-          "sub_goods_map": []
-        }
-      }
 
-    }
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    this.id = options.id || 1
+    this.loadData()
+    this.loadReview()
   },
   onReady: function () {
     // 页面渲染完成
@@ -639,17 +60,65 @@ Page({
     // 页面关闭
   },
 
-  initTab: function () {
-    var that = this;
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
-        });
-      }
-    });
+  loadData() {
+    var that = this
+    var id = this.id;
+    wx.showNavigationBarLoading()
+    getCurrentAddress(function (address) {
+      getSellerInfo({
+        address,
+        seller_id: id,
+        success(data) {
+          data['distanceFormat'] = +(data['distance'] / 1000).toFixed(2)
+          that.setData({
+            info: data
+          })
+          wx.setNavigationBarTitle({
+            title: data.seller_name
+          })
+        },
+        complete() {
+          wx.hideNavigationBarLoading()
+        }
+      })
+    })
   },
+
+  loadReview() {
+    var that = this;
+    var id = this.id
+    var {review: {
+      page, loading
+    }} = this.data
+    if (loading) {
+      return;
+    }
+
+    this.setData({
+      'review.loading': true
+    })
+    getReviews({
+      page,
+      seller_id: id,
+      success(data) {
+        var {review: {
+          list
+        }} = that.data
+        var list2 = data.list.map(item => {
+          item['timeFormat'] = datetimeFormat(item['time']);
+          return item
+        })
+
+        that.setData({
+          'review.list': list ? list.concat(list2) : list2,
+          'review.loading': false,
+          'review.page': page + 1,
+          'review.hasMore': data.count == 10
+        })
+      }
+    })
+  },
+
   tabClick: function (e) {
     this.setData({
       activeIndex: e.currentTarget.id
@@ -853,5 +322,14 @@ Page({
   onPhoneTap(e) {
     var {phone} = e.currentTarget.dataset
     makePhoneCall(phone)
+  },
+
+  onScrolltolower(e) {
+    var {
+      hasMore, loading
+    } = this.data.review
+    if (hasMore && !loading) {
+      this.loadReview()
+    }
   }
 })
