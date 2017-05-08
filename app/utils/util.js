@@ -91,6 +91,10 @@ export function getCurrentAddress(callback) {
     })
 }
 
+export function setCurrentAddress(address) {
+    currentAddress = address
+}
+
 
 // 获取当前城市
 var cityName;

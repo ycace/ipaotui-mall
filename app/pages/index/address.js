@@ -1,51 +1,17 @@
 // pages/index/address.js
 import {
-  getCurrentAddressList,
+  getPrevPage,
+  getCurrentAddressList, setCurrentAddress,
   searchAddressList,
   splitByKeyword
 } from '../../utils/util'
 import debounce from '../../utils/debounce'
 
-
-
 var initReLocateLabel = '重新定位'
 Page({
   data: {
     reLocateLabel: initReLocateLabel,
-    addressList: [
-      {
-        "addr_id": "170",
-        "user_id": "4",
-        "city_id": "330300",
-        "district_id": null,
-        "addr": "龙华大厦",
-        "detail": "",
-        "longitude": "120.69101",
-        "latitude": "28.002974",
-        "receiver": "test4",
-        "phone": "13000000005",
-        "create_time": "2017-02-20 10:38:11",
-        "delete": "0",
-        "district_name": "",
-        "city_name": "温州市"
-      },
-      {
-        "addr_id": "160",
-        "user_id": "4",
-        "city_id": "330300",
-        "district_id": null,
-        "addr": "电商大厦",
-        "detail": "",
-        "longitude": "120.737561",
-        "latitude": "27.979617",
-        "receiver": "test4",
-        "phone": "13000000004",
-        "create_time": "2016-12-16 13:37:10",
-        "delete": "0",
-        "district_name": "",
-        "city_name": "温州市"
-      }
-    ],
+    addressList: [],
 
     poiList: [],
 
@@ -55,6 +21,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    this.callback = options.cb || 'callback'
     this.initPoiList()
     this.onSearchInput = debounce(this.onSearchInput, 300)
   },
@@ -88,8 +55,8 @@ Page({
         keyword: value,
         success(data) {
           data = data.map(item => {
-             item['titleSplit'] = splitByKeyword(item.title, value)
-             return item
+            item['titleSplit'] = splitByKeyword(item.title, value)
+            return item
           })
           that.setData({
             searchList: data
@@ -105,7 +72,26 @@ Page({
     })
   },
   onSearchItemTap(e) {
-    console.log(e)
+    var {id} = e.currentTarget
+    var {searchList} = this.data
+    var {
+      title, address, location,
+      city, district, adcode
+    } = searchList[id]
+
+    getPrevPage()[this.callback]({
+      location, title, address,
+      city, district,
+      district_id: adcode.toString(),
+      city_id: adcode.toString().replace(/\d{2}$/, '00')
+    })
+    wx.navigateBack()
+  },
+  onAddressItemTap(e) {
+    var {id} = e.currentTarget
+    var {poiList} = this.data
+    getPrevPage()[this.callback](poiList[id])
+    wx.navigateBack()
   },
 
   initPoiList() {

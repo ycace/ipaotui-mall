@@ -13,7 +13,7 @@
 .address {
   position: relative;
   padding: 3px 15px 3px 5px;
-  min-width: 40%;
+  min-width: 100px;
   max-width: 50%;
   font-size: 14px;
   color: #fff;

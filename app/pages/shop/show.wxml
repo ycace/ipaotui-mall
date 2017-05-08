@@ -161,7 +161,7 @@
                 <image class="info__phone-icon" src="/images/chat_phone_normal.png"></image>
               </view>
             </view>
-            <view class="weui-cell">
+            <view wx:if="{{info.notice}}" class="weui-cell">
               <view class="weui-cell__hd weui-cell__hd_info">
                 商家公告
               </view>

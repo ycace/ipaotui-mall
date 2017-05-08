@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 import {
-  getCurrentAddress
+  getCurrentAddress, setCurrentAddress
 } from '../../utils/util'
 
 import {
@@ -62,7 +62,7 @@ Page({
 
   initAddress() {
     var that = this
-    getCurrentAddress(function(address) {
+    getCurrentAddress(function (address) {
       that.setData({
         currentAddress: address
       })
@@ -102,9 +102,25 @@ Page({
       }
     })
   },
+  invalidateData() {
+    this.setData({
+      page: 0,
+      hasMore: true,
+      loading: false,
+      shopList: null
+    })
+  },
   onReachBottom(e) {
     if (this.data.hasMore) {
       this.loadData()
     }
   },
+  callback(address) {
+    setCurrentAddress(address)
+    this.setData({
+      currentAddress: address
+    })
+    this.invalidateData()
+    this.loadData()
+  }
 })

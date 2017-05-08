@@ -19,7 +19,7 @@
     </view>
   </view>
   <view wx:else class="content">
-    <view class="address-box">
+    <view wx:if="{{addressList && addressList.length > 0}}" class="address-box">
       <view class="address-box__title">
         <image class="address-box__title-img" src="/images/takeout_ic_account.png"></image> 您的收货地址
       </view>
@@ -37,7 +37,7 @@
         <image class="address-box__title-img" src="/images/takeout_ic_address.png"></image> 定位地址
       </view>
       <view class="address-list">
-        <view wx:for="{{poiList}}" wx:key="{{index}}" class="address-item">
+        <view id="{{index}}" bindtap="onAddressItemTap" wx:for="{{poiList}}" wx:key="{{index}}" class="address-item">
           <view class="address-item__addr">{{item.title}}</view>
           <block wx:if="{{index == 0}}">
             <view class="grey-color text-small">
