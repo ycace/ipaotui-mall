@@ -1,9 +1,10 @@
 {
   "pages": [
+    "pages/mine/mine",
+    "pages/login/login",
     "pages/index/index",
     "pages/index/address",
     "pages/shop/show",
-    "pages/mine/mine",
     "pages/order/show",
     "pages/order/quasi",
     "pages/order/list",

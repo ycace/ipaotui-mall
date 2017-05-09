@@ -1,0 +1,29 @@
+<!--login.wxml-->
+<form catchsubmit="formSubmit">
+  <view class="weui-cells">
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type="digit" value="{{phone}}" maxlength="11" bindinput="onInputPhone" name="phone" class="weui-input" placeholder="请输入手机号" />
+      </view>
+      <view class="weui-cell__ft">
+        <view class="weui-vcode-btn" bindtap="onGetCode">
+          {{count > 0 ? count + ' 秒': codeLabel}}
+        </view>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input weui-cell_vcode">
+      <view class="weui-cell__hd">
+        <view class="weui-label">验证码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input name="code" type="digit" class="weui-input" placeholder="请输入验证码" />
+      </view>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button class="weui-btn" loading="{{loading}}" type="primary" formType="submit">确定</button>
+  </view>
+</form>

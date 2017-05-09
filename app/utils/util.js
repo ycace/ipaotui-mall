@@ -296,3 +296,21 @@ export function splitByKeyword(text, keyword) {
     }
     return res
 }
+
+var userInfo
+export function getUserInfo(cb) {
+  if(userInfo) {
+    return cb(userInfo)
+  } else {
+    wx.getUserInfo({
+      success(res) {
+        userInfo = res.userInfo
+        cb(userInfo)
+      },
+      fail(res) {
+        console.log(res)
+        alert('获取用户信息失败')
+      }
+    })
+  }
+}

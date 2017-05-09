@@ -2,24 +2,30 @@
 <!--pages/mine/mine.wxml-->
 <view class="header">
   <view>
-    <image class="avatar" src="/images/default-image.png"></image>
+    <image class="avatar" src="{{loginInfo ? userInfo.avatarUrl: '/images/default-image.png'}}"></image>
   </view>
   <view>
-    未登录
+    {{loginInfo ? userInfo.nickName : '未登录'}}
+  </view>
+  <view wx:if="{{loginInfo}}" class="classname">
+    {{loginInfo.phone}}
   </view>
 </view>
 <view class="weui-cells">
-  <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <navigator wx:if="{{loginInfo}}" url="/pages/address/list" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
     <view class="weui-cell__bd">收货地址</view>
     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
   </navigator>
-  <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+  <view data-phone="400-926-2108" bindtap="onPhoneTap" class="weui-cell weui-cell_access">
     <view class="weui-cell__bd">客服热线</view>
     <view class="weui-cell__ft weui-cell__ft_in-access">400-926-2108</view>
-  </navigator>
+  </view>
 </view>
 <view class="button-sp-area">
-  <button class="weui-btn" type="primary">
-    立即登录
+  <button loading="{{loading}}" bindtap="onLogout" wx:if="{{loginInfo}}"  class="weui-btn weui-btn_plain" >
+    退出账号
   </button>
+  <navigator url="/pages/login/login?callback=callback" wx:else class="weui-btn weui-btn_primary" hover-class="button-hover">
+    立即登录
+  </navigator>
 </view>

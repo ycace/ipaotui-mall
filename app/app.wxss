@@ -14,6 +14,7 @@ page {
 .grey-color {
   color: #999 !important;
 }
+
 .text-large {
   font-size: 1.2em;
 }
@@ -46,6 +47,17 @@ button[type=primary], .weui-btn_primary {
   background-color: #ff5801;
 }
 
+.weui-btn_primary {
+  line-height: 2.55555556;
+  font-size: 18px;
+  text-align: center;
+  box-sizing: border-box;
+  text-decoration: none;
+  border-radius: 5px;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
 .weui-btn_mini {
   display: inline-block;
   line-height: 2.3;
@@ -59,7 +71,8 @@ button[type="primary"][plain] {
   color: #ff5801;
   border-color: #ff5801;
 }
-button[type="primary"][disabled] {
+
+button[type="primary"][disabled], button[loading][type="primary"] {
   background-color: #ffa97c;
 }
 
@@ -77,5 +90,3 @@ button[type="primary"][disabled] {
   margin-top: 15px;
   padding: 0 15px;
 }
-
-
