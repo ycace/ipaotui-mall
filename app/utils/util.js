@@ -202,10 +202,11 @@ export function alert(content, callback) {
 }
 // 确认框
 export function confirm(options) {
-    const {
+    var {
         content, confirmText,
         ok,
     } = options
+    confirmText = confirmText || '确定'
     wx.showModal({
         content,
         confirmText,

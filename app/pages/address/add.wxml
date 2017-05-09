@@ -1,41 +1,42 @@
-
 <!--pages/address/add.wxml-->
-<view class="weui-cells">
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">联系人</view>
+<form catchsubmit="formSubmit">
+  <view class="weui-cells">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">联系人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input value="{{receiver}}" name="receiver" class="weui-input" placeholder="您的姓名" />
+      </view>
     </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="您的姓名" />
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input value="{{phone}}" name="phone" type="digit" maxlength="11" class="weui-input" placeholder="配送人员联系您的电话" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_access">
+      <view class="weui-cell__hd">
+        <view class="weui-label">收货地址</view>
+      </view>
+      <view class="weui-cell__bd weui-cell__ft_in-access">
+        {{address.title}}
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">门牌号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input name="detail" value="{{detail}}" class="weui-input" placeholder="请输入门牌号等详细信息" />
+      </view>
     </view>
   </view>
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">手机号</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="配送人员联系您的电话" />
-    </view>
+  <view class="button-sp-area">
+    <button class="weui-btn" type="primary" loading="{{loading}}" formType="submit">
+      保存
+    </button>
   </view>
-  <view class="weui-cell weui-cell_access">
-    <view class="weui-cell__hd">
-      <view class="weui-label">收货地址</view>
-    </view>
-    <view class="weui-cell__bd weui-cell__ft_in-access">
-      松散
-    </view>
-  </view>
-  <view class="weui-cell weui-cell_input">
-    <view class="weui-cell__hd">
-      <view class="weui-label">门牌号</view>
-    </view>
-    <view class="weui-cell__bd">
-      <input class="weui-input" placeholder="请输入门牌号等详细信息" />
-    </view>
-  </view>
-</view>
-<view class="button-sp-area">
-  <button class="weui-btn" type="primary">
-    保存
-  </button>
-</view>
+</form>

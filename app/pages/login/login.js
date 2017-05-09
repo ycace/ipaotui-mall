@@ -88,18 +88,13 @@ Page({
     if(loading) {
       return;
     }
-
+    if (!this.validate.checkForm(e)) {
+      const error = this.validate.errorList[0]
+      return alert(error.msg)
+    }
     this.setData({
       loading: true
     })
-
-    if (!this.validate.checkForm(e)) {
-      const error = this.validate.errorList[0]
-      that.setData({
-        loading: false
-      })
-      return alert(error.msg)
-    }
 
     var {phone, code} = e.detail.value
     login({

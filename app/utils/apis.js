@@ -103,7 +103,7 @@ export function login(options) {
 // 退出账号
 export function logout(options) {
   const {
-    phone, 
+    phone,
     success, error
   } = options
   fetch({
@@ -138,3 +138,142 @@ export function getLoginInfo(options) {
   })
 }
 
+// 获取用户地址列表
+export function getUserAddrs(options) {
+  const {
+    success, error
+  } = options
+
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=User&a=getUserAddrs',
+      data: {
+        user_id, user_token
+      },
+      success, error
+    })
+
+  })
+}
+// 获取用户地址
+export function getUserAddr(options) {
+  const {
+    addr_id,
+    success, error
+  } = options
+
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=User&a=getUserAddr',
+      data: {
+        user_id, user_token,
+        addr_id
+      },
+      success, error
+    })
+
+  })
+}
+
+// 新增用户地址
+export function addUserAddr(options) {
+  if(options.addr_id) {
+    return updateUserAddr(options)
+  }
+  const {
+    receiver, phone, detail, address,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    var gps = address.gps
+    if(!gps) {
+      var location = coordFormat(address.location)
+      gps = `${location.longitude},${location.latitude}`
+    }
+    fetch({
+      url: 'index.php?m=Mall&c=User&a=addUserAddr',
+      data: {
+        user_id, user_token,
+        receiver, phone, detail,
+        gps, 
+        addr: address.title,
+        city_id: address.city_id,
+        city_name: address.city,
+        district_id: address.district_id,
+        district_name: address.district,
+      },
+      success, error
+    })
+
+  })
+}
+
+// 修改地址
+export function updateUserAddr(options) {
+  const {
+    receiver, phone, detail, address,
+    addr_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    var gps = address.gps
+    if(!gps) {
+      var location = coordFormat(address.location)
+      gps = `${location.longitude},${location.latitude}`
+    }
+    fetch({
+      url: 'index.php?m=Mall&c=User&a=updateUserAddr',
+      data: {
+        user_id, user_token,
+        receiver, phone, detail,
+        gps, addr_id,
+        addr: address.title,
+        city_id: address.city_id,
+        city_name: address.city,
+        district_id: address.district_id,
+        district_name: address.district_name,
+      },
+      success, error
+    })
+
+  })
+}
+
+// 删除地址
+export function deleteUserAddr(options) {
+  const {
+    addr_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=User&a=deleteUserAddr',
+      data: {
+        user_id, user_token,
+        addr_id
+      },
+      success, error
+    })
+
+  })
+}
