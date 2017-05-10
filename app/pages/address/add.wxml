@@ -17,7 +17,7 @@
         <input value="{{phone}}" name="phone" type="digit" maxlength="11" class="weui-input" placeholder="配送人员联系您的电话" />
       </view>
     </view>
-    <view class="weui-cell weui-cell_access">
+    <view class="weui-cell weui-cell_access" bindtap="onChooseLocation">
       <view class="weui-cell__hd">
         <view class="weui-label">收货地址</view>
       </view>
@@ -35,7 +35,7 @@
     </view>
   </view>
   <view class="button-sp-area">
-    <button class="weui-btn" type="primary" loading="{{loading}}" formType="submit">
+    <button disabled="{{disabled}}" class="weui-btn" type="primary" loading="{{loading}}" formType="submit">
       保存
     </button>
   </view>

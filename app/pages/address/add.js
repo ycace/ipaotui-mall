@@ -4,7 +4,8 @@ import {
   addUserAddr, getUserAddr
 } from '../../utils/apis'
 import {
-  alert, getCurrentAddress,
+  alert,
+  getCurrentAddress, reverseGeocoder,
   getPrevPage
 } from '../../utils/util'
 Page({
@@ -12,7 +13,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 194
+    this.id = options.id
     this.callback = options.callback
     this.initValidate()
     if (this.id) {
@@ -60,6 +61,34 @@ Page({
       })
     })
   },
+  onChooseLocation(e) {
+    var that = this
+    that.setData({
+      disabled: true
+    })
+    wx.chooseLocation({
+      success: function (res) {
+        var {
+          name: title, address,
+          longitude, latitude
+        } = res
+        var location = {
+          longitude, latitude
+        }
+        reverseGeocoder({
+          location,
+          success(data) {
+            that.setData({
+              address: Object.assign({
+                title, address, location
+              }, data),
+              disabled: false,
+            })
+          }
+        })
+      },
+    })
+  },
   loadData() {
     var that = this
     var addr_id = this.id
@@ -70,7 +99,7 @@ Page({
         that.setData({
           receiver: data.receiver,
           phone: data.phone,
-          detail: data.detail, 
+          detail: data.detail,
           address: {
             title: data.addr,
             city: data.city_name,
@@ -110,7 +139,7 @@ Page({
     } = e.detail.value
     addUserAddr({
       receiver, phone, detail,
-      address, 
+      address,
       addr_id: that.id,
       success(data) {
         that.setData({

@@ -1,45 +1,21 @@
 // pages/address/select.js
+import {
+  getUserAddrs, deleteUserAddr
+} from '../../utils/apis'
+import {
+  confirm
+} from '../../utils/util'
+
 Page({
   data: {
-    selectedId: 170,
-    list: [
-      {
-        "addr_id": "170",
-        "user_id": "4",
-        "city_id": "330300",
-        "district_id": null,
-        "addr": "龙华大厦",
-        "detail": "",
-        "longitude": "120.69101",
-        "latitude": "28.002974",
-        "receiver": "test4",
-        "phone": "13000000005",
-        "create_time": "2017-02-20 10:38:11",
-        "delete": "0",
-        "district_name": "",
-        "city_name": "温州市"
-      },
-      {
-        "addr_id": "160",
-        "user_id": "4",
-        "city_id": "330300",
-        "district_id": null,
-        "addr": "电商大厦",
-        "detail": "",
-        "longitude": "120.737561",
-        "latitude": "27.979617",
-        "receiver": "test4",
-        "phone": "13000000004",
-        "create_time": "2016-12-16 13:37:10",
-        "delete": "0",
-        "district_name": "",
-        "city_name": "温州市"
-      }
-    ]
 
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    this.setData({
+      selectedId: options.id
+    })
+    this.loadData()
   },
   onReady: function () {
     // 页面渲染完成
@@ -52,5 +28,58 @@ Page({
   },
   onUnload: function () {
     // 页面关闭
+  },
+  onPullDownRefresh() {
+    this.loadData(function () {
+      wx.stopPullDownRefresh()
+    })
+  },
+  loadData(cb) {
+    var that = this
+    var {loading} = this.data
+    if (loading) {
+      return
+    }
+    this.setData({
+      loading: true
+    })
+    wx.showNavigationBarLoading()
+    getUserAddrs({
+      success(data) {
+        that.setData({
+          list: data,
+          loading: false
+        })
+        wx.hideNavigationBarLoading()
+        cb && cb()
+      },
+      error() {
+        that.setData({
+          loading: false
+        })
+        wx.hideNavigationBarLoading()
+        cb && cb()
+      }
+    })
+  },
+  callback() {
+    this.loadData()
+  },
+  onDelete(e) {
+    var that = this
+    var {id} = e.currentTarget
+    var address = this.data.list[id]
+    confirm({
+      content: `是否删除地址 ${address.addr} ${address.detail}`,
+      confirmText: '删除',
+      ok() {
+        deleteUserAddr({
+          addr_id: address.addr_id,
+          success(data) {
+            that.loadData()
+          }
+        })
+      }
+    })
   }
 })
