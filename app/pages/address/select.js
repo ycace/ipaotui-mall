@@ -3,7 +3,7 @@ import {
   getUserAddrs, deleteUserAddr
 } from '../../utils/apis'
 import {
-  confirm
+  confirm, getPrevPage
 } from '../../utils/util'
 
 Page({
@@ -12,6 +12,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    this.cb = options.callback || 'callback'
     this.setData({
       selectedId: options.id
     })
@@ -81,5 +82,15 @@ Page({
         })
       }
     })
+  },
+  onItemTap(e) {
+    var {id} = e.currentTarget
+    var {selectedId} = this.data
+    if (id == selectedId) {
+      return
+    }
+    getPrevPage()[this.cb](id)
+    wx.navigateBack()
   }
+
 })

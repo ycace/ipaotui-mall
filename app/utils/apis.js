@@ -1,6 +1,6 @@
 import {
   fetch, coordFormat,
-  alert, confirm
+  alert, confirm,
 } from './util'
 
 // 获取商店列表
@@ -10,7 +10,7 @@ export function getSellers(options) {
     success
   } = options
   page = page || 0
-  var location = coordFormat(address.location)
+  var location = address.location
   fetch({
     url: 'index.php?m=Mall&c=Seller&a=getSellers',
     data: {
@@ -29,18 +29,20 @@ export function getSellers(options) {
 // 获取商店详情
 export function getSellerInfo(options) {
   var {
-    seller_id, address,
+    seller_id,
     success, complete
   } = options
-  var location = coordFormat(address.location)
-  fetch({
-    url: 'index.php?m=Mall&c=Seller&a=getSellerInfo',
-    data: {
-      seller_id,
-      longitude: location.longitude,
-      latitude: location.latitude
-    },
-    success, complete
+  getApp().getCurrentAddress(address => {
+    var location = address.location
+    fetch({
+      url: 'index.php?m=Mall&c=Seller&a=getSellerInfo',
+      data: {
+        seller_id,
+        longitude: location.longitude,
+        latitude: location.latitude
+      },
+      success, complete
+    })
   })
 }
 
@@ -185,7 +187,7 @@ export function getUserAddr(options) {
 
 // 新增用户地址
 export function addUserAddr(options) {
-  if(options.addr_id) {
+  if (options.addr_id) {
     return updateUserAddr(options)
   }
   const {
@@ -198,7 +200,7 @@ export function addUserAddr(options) {
     }
     var {user_id, user_token} = loginInfo.user_info
     var gps = address.gps
-    if(!gps) {
+    if (!gps) {
       var location = coordFormat(address.location)
       gps = `${location.longitude},${location.latitude}`
     }
@@ -207,7 +209,7 @@ export function addUserAddr(options) {
       data: {
         user_id, user_token,
         receiver, phone, detail,
-        gps, 
+        gps,
         addr: address.title,
         city_id: address.city_id,
         city_name: address.city,
@@ -233,7 +235,7 @@ export function updateUserAddr(options) {
     }
     var {user_id, user_token} = loginInfo.user_info
     var gps = address.gps
-    if(!gps) {
+    if (!gps) {
       var location = coordFormat(address.location)
       gps = `${location.longitude},${location.latitude}`
     }
@@ -271,6 +273,165 @@ export function deleteUserAddr(options) {
       data: {
         user_id, user_token,
         addr_id
+      },
+      success, error
+    })
+
+  })
+}
+
+// 添加准订单
+export function addQuasiOrder(options) {
+  const {
+    seller_id,
+    goods,
+    success, error
+  } = options
+  getApp().getCurrentAddress(address => {
+    var data = {
+      seller_id,
+      goods: JSON.stringify(goods)
+    }
+    if (address.addr_id) {
+      data = Object.assign({
+        addr_id: address.addr_id
+      }, data)
+    } else {
+      var location = address.location
+      data = Object.assign({
+        city_id: address.city_id,
+        city_name: address.city,
+        district_id: address.district_id,
+        district_name: address.district,
+        longitude: location.longitude,
+        latitude: location.latitude
+      }, data)
+    }
+    getApp().getLoginInfo(loginInfo => {
+      if (!loginInfo.user_info) {
+        return alert('用户未登录')
+      }
+      var {user_id, user_token} = loginInfo.user_info
+      fetch({
+        url: 'index.php?m=Mall&c=Order&a=addQuasiOrder',
+        data: Object.assign({
+          user_id, user_token,
+        }, data),
+        success, error
+      })
+
+    })
+  })
+}
+
+// 获取准订单
+export function getQuasiOrderInfo(options) {
+  var {
+    quasi_order_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=getQuasiOrderInfo',
+      data: {
+        user_id, user_token,
+        quasi_order_id
+      },
+      success, error
+    })
+
+  })
+}
+
+// 更新准订单地址
+export function updateOrderAddr(options) {
+  var {
+    quasi_order_id, addr_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=updateOrderAddr',
+      data: {
+        user_id, user_token,
+        quasi_order_id, addr_id
+      },
+      success, error
+    })
+
+  })
+}
+
+// 添加订单
+export function addOrder(options) {
+  var {
+    quasi_order_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=addOrder',
+      data: {
+        user_id, user_token,
+        quasi_order_id
+      },
+      success, error
+    })
+
+  })
+}
+
+// 获取订单列表
+export function getOrders(options) {
+  var {
+    page,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=getOrders',
+      data: {
+        user_id, user_token,
+        page
+      },
+      success, error
+    })
+
+  })
+}
+
+// 获取订单详情
+export function getOrderInfo(options) {
+  var {
+    order_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=getOrderInfo',
+      data: {
+        user_id, user_token,
+        order_id
       },
       success, error
     })

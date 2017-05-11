@@ -1,5 +1,8 @@
 /* pages/order/show.wxss */
 @import './quasi.wxss';
+.quasi-goods {
+  margin-top: 0;
+}
 
 .tab {
   display: flex;

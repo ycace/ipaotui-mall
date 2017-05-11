@@ -3,7 +3,7 @@ import WxValidate from '../../utils/WxValidate'
 import Countdown from '../../utils/countdown'
 import { alert, getPrevPage } from '../../utils/util'
 import { getCode, login } from '../../utils/apis'
-var initCount = 10
+var initCount = 60
 Page({
   data: {
     codeLabel: '获取验证码',
@@ -11,7 +11,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.callback = options.callback
+    this.callback = options.callback || 'callback'
     this.countdown = new Countdown(this, 'count')
     this.initValidate()
   },
@@ -103,7 +103,9 @@ Page({
         that.setData({
           loading: false
         })
-        getPrevPage()[that.callback](data)
+        getApp().setLoginInfo(data)
+        var cb = getPrevPage()[that.callback]
+        cb && cb(data)
         wx.navigateBack()
       },
       error() {

@@ -84,11 +84,13 @@
                 <view class="text-small grey-color">另需配送费{{info.delivery_fee}}元</view>
               </view>
             </view>
-            <button class="weui-btn menu-cart__btn" type="primary" disabled="{{order.totalPrice < info.min_price ? true: false}}">
-              <block wx:if="{{order.totalPrice > 0 }}">
-                <text wx:if="{{order.totalPrice > info.min_price}}">选好了</text>
-                <text wx:else>还差{{info.min_price - order.totalPrice}}元起送</text>
-              </block>
+            <button disabled="{{loading}}" loading="{{loading}}" wx:if="{{order.totalPrice >= info.min_price}}" bindtap="onAddQuasiOrder" class="weui-btn menu-cart__btn" type="primary">
+              选好了
+            </button>
+            <button wx:else class="weui-btn menu-cart__btn" type="primary" disabled>
+              <text wx:if="{{order.totalPrice > 0}}">
+                还差{{info.min_price - order.totalPrice}}元起送
+              </text>
               <text wx:else>{{info.min_price}}元起送</text>
             </button>
           </view>

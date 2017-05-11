@@ -1,31 +1,33 @@
-
 <!--pages/order/list.wxml-->
-<view wx:if="{{login}}" class="order-list">
-
-  <view class="order-item" wx:for="{{list}}" wx:key="order_id">
-    <view class="order-item__hd">
+<import src="/templates/load-more.wxml" />
+<view wx:if="{{loginInfo.is_login}}">
+  <view class="order-list">
+    <view class="order-item" wx:for="{{list}}" wx:key="order_id">
+      <view class="order-item__hd">
         <navigator class="order-item__shop trangle" url="/pages/shop/show?id={{item.seller_id}}">
-        {{item.seller_name}}
+          {{item.seller_name}}
         </navigator>
         <view class="order-item__status {{item.state==1? 'order-item__status_pay': ''}}">{{ORDER_STATES[item.state]}}</view>
-    </view>
-    <navigator url="/pages/order/show?id={{item.order_id}}" class="order-item__bd ">
-      <image class="order-item__pic" src="{{item.pic_url}}"></image>
-      <view class="order-item__content weui-cell__ft_in-access">
-        <view class="order-item__price">¥{{item.pay_price}}</view>
-        <view class="">{{item.add_time}}</view>
       </view>
-    </navigator>
-    <view wx:if="{{item.state == 1 || item.state == 4}}" class="order-item__ft">
-      <button wx:if="{{item.state == 1}}" class="weui-btn_primary weui-btn_mini">立即付款</button>
-      <navigator wx:else url="url" class="weui-btn_primary weui-btn_mini">去评论</navigator>
+      <navigator url="/pages/order/show?id={{item.order_id}}" class="order-item__bd ">
+        <image class="order-item__pic" src="{{item.pic_url}}"></image>
+        <view class="order-item__content weui-cell__ft_in-access">
+          <view class="order-item__price">¥{{item.pay_price}}</view>
+          <view class="">{{item.add_time_format}}</view>
+        </view>
+      </navigator>
+      <view wx:if="{{item.state == 1 || item.state == 4}}" class="order-item__ft">
+        <button wx:if="{{item.state == 1}}" class="weui-btn_primary weui-btn_mini">立即付款</button>
+        <navigator wx:else url="url" class="weui-btn_primary weui-btn_mini">去评论</navigator>
+      </view>
     </view>
   </view>
+  <template is="load-more" data="{{hasMore: hasMore, loading: loading}}"></template>
 </view>
-<view wx:else class="order-logout">
+<view wx:elif="{{loginInfo}}" class="order-logout">
   <image class="order-logout__bg" src="/images/order-logout@2x.png"></image>
   <view class="order-logout__tip">
     您还没有登录, 登录后查看订单
   </view>
-  <navigator url="url" class="weui-btn weui-btn_primary weui-btn_mini" hover-class="button-hover">登录</navigator>
+  <navigator url="/pages/login/login" class="weui-btn weui-btn_primary weui-btn_mini" hover-class="button-hover">登录</navigator>
 </view>

@@ -1,10 +1,6 @@
 //index.js
 //获取应用实例
 import {
-  getCurrentAddress, setCurrentAddress
-} from '../../utils/util'
-
-import {
   getSellers
 } from '../../utils/apis'
 
@@ -62,13 +58,18 @@ Page({
 
   initAddress() {
     var that = this
-    getCurrentAddress(function (address) {
+    this.invalidateData()
+    getApp().getCurrentAddress(function (address) {
+      if (address.addr_id) {
+        address['title'] = `${address.addr} ${address.detail}`
+      }
       that.setData({
         currentAddress: address
       })
       that.loadData()
     })
   },
+
   loadData() {
     if (this.data.loading) {
       return;
@@ -111,16 +112,12 @@ Page({
     })
   },
   onReachBottom(e) {
-    if (this.data.hasMore) {
+    if (this.data.hasMore && !this.data.loading) {
       this.loadData()
     }
   },
   callback(address) {
-    setCurrentAddress(address)
-    this.setData({
-      currentAddress: address
-    })
-    this.invalidateData()
-    this.loadData()
+    getApp().setCurrentAddress(address)
+    this.initAddress()
   }
 })

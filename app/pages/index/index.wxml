@@ -3,7 +3,7 @@
 
 <!--index.wxml-->
 <view class="topbar">
-  <navigator url="./address?cb=callback" class="address trangle">
+  <navigator url="./address?callback=callback" class="address trangle">
     <image class="address__icon" src="/images/location.png"></image>{{currentAddress ? currentAddress.title : '定位中...'}}
   </navigator>
   <view class="search">

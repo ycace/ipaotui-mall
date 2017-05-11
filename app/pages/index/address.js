@@ -7,6 +7,8 @@ import {
 } from '../../utils/util'
 import debounce from '../../utils/debounce'
 
+import {getUserAddrs} from '../../utils/apis'
+
 var initReLocateLabel = '重新定位'
 Page({
   data: {
@@ -21,7 +23,8 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.callback = options.cb || 'callback'
+    this.callback = options.callback || 'callback'
+    this.initAddressList()
     this.initPoiList()
     this.onSearchInput = debounce(this.onSearchInput, 300)
   },
@@ -87,11 +90,33 @@ Page({
     })
     wx.navigateBack()
   },
-  onAddressItemTap(e) {
+  onPoiItemTap(e) {
     var {id} = e.currentTarget
     var {poiList} = this.data
     getPrevPage()[this.callback](poiList[id])
     wx.navigateBack()
+  },
+
+  onAddressItemTap(e) {
+    var {id} = e.currentTarget
+    var {addressList} = this.data
+    getPrevPage()[this.callback](addressList[id])
+    wx.navigateBack()
+  },
+
+  initAddressList() {
+    var that = this
+    getApp().getLoginInfo(loginInfo => {
+      if(loginInfo.is_login) {
+        getUserAddrs({
+          success(data) {
+            that.setData({
+              addressList: data
+            })
+          }
+        })
+      }
+    })
   },
 
   initPoiList() {

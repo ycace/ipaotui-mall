@@ -13,17 +13,18 @@ Page({
         userInfo
       })
     })
-    app.getLoginInfo(loginInfo => {
-      that.setData({
-        loginInfo: loginInfo.user_info
-      })
-    })
   },
   onReady:function(){
     // 页面渲染完成
   },
   onShow:function(){
     // 页面显示
+    var that = this
+    app.getLoginInfo(loginInfo => {
+      that.setData({
+        loginInfo: loginInfo.user_info
+      })
+    })
   },
   onHide:function(){
     // 页面隐藏
@@ -55,7 +56,6 @@ Page({
     })
   },
   callback(loginInfo) {
-    app.setLoginInfo(loginInfo)
     this.setData({
       loginInfo: loginInfo.user_info
     })

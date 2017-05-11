@@ -24,7 +24,7 @@
         <image class="address-box__title-img" src="/images/takeout_ic_account.png"></image> 您的收货地址
       </view>
       <view class="address-list">
-        <view wx:for="{{addressList}}" wx:key="addr_id" class="address-item">
+        <view id="{{index}}" bindtap="onAddressItemTap" wx:for="{{addressList}}" wx:key="addr_id" class="address-item">
           <view class="address-item__addr">{{item.addr}}</view>
           <view class="address-item__name grey-color text-small">
             {{item.receiver}} {{item.phone}}
@@ -37,7 +37,7 @@
         <image class="address-box__title-img" src="/images/takeout_ic_address.png"></image> 定位地址
       </view>
       <view class="address-list">
-        <view id="{{index}}" bindtap="onAddressItemTap" wx:for="{{poiList}}" wx:key="{{index}}" class="address-item">
+        <view id="{{index}}" bindtap="onPoiItemTap" wx:for="{{poiList}}" wx:key="{{index}}" class="address-item">
           <view class="address-item__addr">{{item.title}}</view>
           <block wx:if="{{index == 0}}">
             <view class="grey-color text-small">

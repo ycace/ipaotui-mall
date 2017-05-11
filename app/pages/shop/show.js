@@ -2,13 +2,12 @@
 
 import {
   makePhoneCall,
-  getCurrentAddress,
   datetimeFormat
 } from '../../utils/util'
 
 import {
   getSellerInfo,
-  getReviews
+  getReviews, addQuasiOrder
 } from '../../utils/apis'
 
 
@@ -43,7 +42,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 1
+    this.id = options.id || 2
     this.loadData()
     this.loadReview()
   },
@@ -64,23 +63,20 @@ Page({
     var that = this
     var id = this.id;
     wx.showNavigationBarLoading()
-    getCurrentAddress(function (address) {
-      getSellerInfo({
-        address,
-        seller_id: id,
-        success(data) {
-          data['distanceFormat'] = +(data['distance'] / 1000).toFixed(2)
-          that.setData({
-            info: data
-          })
-          wx.setNavigationBarTitle({
-            title: data.seller_name
-          })
-        },
-        complete() {
-          wx.hideNavigationBarLoading()
-        }
-      })
+    getSellerInfo({
+      seller_id: id,
+      success(data) {
+        data['distanceFormat'] = +(data['distance'] / 1000).toFixed(2)
+        that.setData({
+          info: data
+        })
+        wx.setNavigationBarTitle({
+          title: data.seller_name
+        })
+      },
+      complete() {
+        wx.hideNavigationBarLoading()
+      }
     })
   },
 
@@ -331,5 +327,48 @@ Page({
     if (hasMore && !loading) {
       this.loadReview()
     }
+  },
+  onAddQuasiOrder(e) {
+    var that = this
+    var {
+      info: {seller_id},
+      order: {goods},
+      loading
+    } = this.data
+    if (loading) {
+      return
+    }
+
+    this.setData({
+      loading: true
+    })
+    getApp().getLoginInfo(loginInfo => {
+      if(!loginInfo.is_login) {
+        wx.navigateTo({
+          url: '/pages/login/login',
+        })
+        this.setData({
+          loading: false
+        })
+        return
+      }
+      addQuasiOrder({
+        seller_id, goods,
+        success(data) {
+
+          that.setData({
+            loading: false
+          })
+          wx.navigateTo({
+            url: `/pages/order/quasi?id=${data.quasi_order_id}`
+          })
+        },
+        error() {
+          that.setData({
+            loading: false
+          })
+        }
+      })
+    })
   }
 })

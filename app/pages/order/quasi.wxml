@@ -1,13 +1,16 @@
 
 <!--pages/order/quasi.wxml-->
 <view class="quasi">
-  <view class="weui-panel weui-panel_address ">
-    <view class="weui-panel__bd ">
-      <navigator url class="weui-media-box weui-media-box_text weui-cell__ft_in-access weui-media-box_address">
+  <view wx:if="{{info}}" class="weui-panel weui-panel_address ">
+    <view  class="weui-panel__bd ">
+      <navigator wx:if="{{info.receiver_addr_id}}" url="/pages/address/select?callback=callbackAddress&id={{info.receiver_addr_id}}" class="weui-media-box weui-media-box_text weui-cell__ft_in-access weui-media-box_address">
         <view class="weui-media-box__title weui-media-box__title_in-text">{{info.receiver}} {{info.receiver_phone}}</view>
         <view class="weui-media-box__desc">
           {{info.receiver_addr}}
         </view>
+      </navigator>
+      <navigator wx:else url="/pages/address/select?callback=callbackAddress" class=" weui-media-box weui-media-box_text weui-cell__ft_in-access weui-media-box_address primary-color text-large">
+        选择地址
       </navigator>
     </view>
   </view>
@@ -79,7 +82,7 @@
     待支付
     <text class="primary-color">¥{{info.pay_price}}</text>
   </view>
-  <button class="weui-btn menu-cart__btn" type="primary">
+  <button bindtap="onAddOrder" loading="{{loading}}" disabled="{{disabled || loading}}" class="weui-btn menu-cart__btn" type="primary">
     提交订单
   </button>
 </view>

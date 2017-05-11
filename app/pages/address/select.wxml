@@ -4,7 +4,7 @@
     可选收货地址
   </view>
   <view class="address__list">
-    <view wx:for="{{list}}" wx:key="addr_id" class="address__item">
+    <view id="{{item.addr_id}}" bindtap="onItemTap" wx:for="{{list}}" wx:key="addr_id" class="address__item">
       <image wx:if="{{selectedId == item.addr_id}}" class="address__item-selected-img" src="/images/address_list_selected.png"></image>
       <view class="">
         {{item.receiver}} {{item.phone}}

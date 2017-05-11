@@ -1,4 +1,5 @@
 /* pages/order/list.wxss */
+@import '/templates/load-more.wxss';
 
 .order-logout {
   text-align: center;
