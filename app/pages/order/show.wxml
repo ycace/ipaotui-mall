@@ -23,8 +23,8 @@
         <text class="primary-color">{{countLabel}}</text>
       </view>
       <view wx:if="{{info.state < 4}}" class="actionbar">
-        <view wx:if="{{info.state < 4}}" class="actionbar-btn actionbar-btn_action">取消订单</view>
-        <view wx:if="{{info.state == 1}}" class="actionbar-btn actionbar-btn_action actionbar-btn_primary">立即付款</view>
+        <button wx:if="{{info.state < 4}}" class="weui-btn actionbar-btn actionbar-btn_action">取消订单</button>
+        <button loading="{{loading}}" disabled="{{loading}}" bindtap="onPayTap" wx:if="{{info.state == 1}}" class="weui-btn actionbar-btn actionbar-btn_action actionbar-btn_primary" type="primary">立即付款</button>
         <view wx:if="{{info.state == 4}}" class="actionbar-btn actionbar-btn_action actionbar-btn_primary">评价</view>
       </view>
     </swiper-item>

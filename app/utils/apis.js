@@ -438,3 +438,26 @@ export function getOrderInfo(options) {
 
   })
 }
+
+// 获取支付参数
+export function getPayment(options) {
+  var {
+    order_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=WeixinMall&a=getPayment',
+      data: {
+        user_id, user_token,
+        order_id
+      },
+      success, error
+    })
+
+  })
+}

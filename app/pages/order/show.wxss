@@ -110,9 +110,16 @@
 }
 
 .actionbar-btn_action {
+  margin-top: 0;
   flex: 1;
   line-height: 50px;
   text-align: center;
+  border-radius: 0;
+  border: none;
+}
+.actionbar-btn_action::after {
+  border: none;
+  border-radius: 0;
 }
 
 .actionbar-btn_primary {

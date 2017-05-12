@@ -1,10 +1,12 @@
 // pages/order/show.js
 import Countdown from '../../utils/countdown'
-import { 
+import {
   countdownFormat, datetimeFormat,
-  makePhoneCall
- } from '../../utils/util'
-import { getOrderInfo } from '../../utils/apis'
+  makePhoneCall, requestPayment
+} from '../../utils/util'
+import {
+  getOrderInfo, getPayment
+} from '../../utils/apis'
 Page({
   data: {
     activeNavIndex: 0,
@@ -21,7 +23,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 1395
+    this.id = options.id || 1409
     this.loadData()
   },
   onReady: function () {
@@ -65,7 +67,7 @@ Page({
     this.countdown = countdown
   },
 
-  loadData() {
+  loadData(cb) {
     var that = this
     var order_id = this.id
     wx.showNavigationBarLoading()
@@ -74,16 +76,20 @@ Page({
       success(data) {
         data['add_time_format'] = datetimeFormat(data.add_time)
         data['flow'] = data.flow.map(item => {
-           item['time_format'] = datetimeFormat(item.time)
-           return item
+          item['time_format'] = datetimeFormat(item.time)
+          return item
         })
         that.setData({
           info: data
         })
-        if(data.left_time > 0) {
+        wx.setNavigationBarTitle({
+          title: data['seller_name'],
+        })
+        if (data.left_time > 0) {
           that.initCountdown(+data.left_time)
         }
         wx.hideNavigationBarLoading()
+        cb && cb()
       },
       error() {
         wx.hideNavigationBarLoading()
@@ -101,9 +107,9 @@ Page({
       ],
       success: function (res) {
         var {tapIndex} = res
-        if(tapIndex == 0) {
+        if (tapIndex == 0) {
           makePhoneCall(seller_phone)
-        } else if(tapIndex == 1) {
+        } else if (tapIndex == 1) {
           makePhoneCall(localphone)
         }
       },
@@ -111,6 +117,42 @@ Page({
         console.log(res.errMsg)
       }
     })
-  }
+  },
+  onPayTap(e) {
+    var that = this
+    var {info: {order_id}, loading} = this.data
+    if (loading) {
+      return;
+    }
+
+    this.setData({
+      loading: true
+    })
+    getPayment({
+      order_id,
+      success(data) {
+        wx.requestPayment({
+          success(data) {
+            that.loadData()
+          },
+          complete () {
+            that.setData({
+              loading: false
+            })
+          }
+        })
+      },
+      error() {
+        that.setData({
+          loading: false
+        })
+      }
+    })
+  },
+  onPullDownRefresh() {
+    this.loadData(function () {
+      wx.stopPullDownRefresh()
+    })
+  },
 
 })

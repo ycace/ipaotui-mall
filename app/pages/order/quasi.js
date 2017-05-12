@@ -1,8 +1,12 @@
 // pages/order/quasi.js
 import {
   getQuasiOrderInfo, updateOrderAddr,
-  addOrder
+  addOrder, getPayment
 } from '../../utils/apis'
+
+import {
+  requestPayment
+} from '../../utils/util'
 Page({
   data: {
     
@@ -92,6 +96,28 @@ Page({
     addOrder({
       quasi_order_id: id,
       success(data) {
+        var order_id = data['order']['order_id']
+        getPayment({
+          order_id,
+          success(data) {
+            requestPayment({
+              data,
+              complete() {
+                that.setData({
+                  loading: false
+                })
+                wx.redirectTo({
+                  url: `/pages/order/show?id=${order_id}`
+                })
+              }
+            })
+          },
+          error() {
+            that.setData({
+              loading: false
+            })
+          }
+        })
         that.setData({
           loading: false
         })
