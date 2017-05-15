@@ -1,5 +1,8 @@
+@import '/templates/star-rate.wxss';
+
 .shop__item {
   align-items: flex-start;
+  background-color: #fff;
 }
 
 .shop__sales {

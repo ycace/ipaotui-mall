@@ -1,0 +1,7 @@
+/* pages/index/category.wxss */
+@import '/templates/load-more.wxss';
+@import './templates/shop.wxss';
+
+.shop-list {
+  margin-top: 10px;
+}

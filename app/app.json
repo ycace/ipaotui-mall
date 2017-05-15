@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/category",
+    "pages/index/search",
     "pages/shop/show",
     "pages/order/list",
     "pages/order/show",
@@ -10,9 +12,7 @@
     "pages/address/list",
     "pages/index/address",
     "pages/address/add",
-    "pages/login/login",
-    "pages/shop/category",
-    "pages/shop/search"
+    "pages/login/login"
   ],
   "window": {
     "backgroundColor": "#f8f8f8",

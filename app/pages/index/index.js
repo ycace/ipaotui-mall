@@ -76,7 +76,7 @@ Page({
     }
     var that = this
     var {
-      page, currentAddress,
+      page,
     } = this.data
 
     this.setData({
@@ -84,7 +84,6 @@ Page({
     })
     getSellers({
       page,
-      address: currentAddress,
       success(data) {
         var {
           shopList

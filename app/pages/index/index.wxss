@@ -1,7 +1,6 @@
 /**index.wxss**/
 
-@import './shop.wxss';
-@import '/templates/star-rate.wxss';
+@import './templates/shop.wxss';
 @import '/templates/load-more.wxss';
 
 .topbar {

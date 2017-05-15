@@ -6,23 +6,25 @@ import {
 // 获取商店列表
 export function getSellers(options) {
   var {
-    page, address,
+    page,
     success
   } = options
   page = page || 0
-  var location = address.location
-  fetch({
-    url: 'index.php?m=Mall&c=Seller&a=getSellers',
-    data: {
-      page,
-      city_name: address.city,
-      city_id: address.city_id,
-      district_name: address.district,
-      district_id: address.district_id,
-      longitude: location.longitude,
-      latitude: location.latitude
-    },
-    success
+  getApp().getCurrentAddress(address => {
+    var location = address.location
+    fetch({
+      url: 'index.php?m=Mall&c=Seller&a=getSellers',
+      data: {
+        page,
+        city_name: address.city,
+        city_id: address.city_id,
+        district_name: address.district,
+        district_id: address.district_id,
+        longitude: location.longitude,
+        latitude: location.latitude
+      },
+      success
+    })
   })
 }
 
@@ -478,6 +480,37 @@ export function getPayment(options) {
       data: {
         user_id, user_token,
         order_id
+      },
+      success, error
+    })
+
+  })
+}
+
+
+// 获取分组列表
+export function getSellersByCategory(options) {
+  var {
+    category_id, page,
+    success, error
+  } = options
+  page = page || 0
+  getApp().getCurrentAddress(address => {
+    var {
+      location,
+      city_id,
+      city: city_name,
+      district_id,
+      district: district_name
+    } = address
+    fetch({
+      url: 'index.php?m=Mall&c=Seller&a=getSellersByCategory',
+      data: {
+        category_id,
+        city_id, city_name,
+        district_id, district_name,
+        page,
+        gps: `${location.longitude},${location.latitude}`,
       },
       success, error
     })
