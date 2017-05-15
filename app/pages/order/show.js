@@ -2,10 +2,11 @@
 import Countdown from '../../utils/countdown'
 import {
   countdownFormat, datetimeFormat,
-  makePhoneCall, requestPayment
+  makePhoneCall, requestPayment, confirm, alert
 } from '../../utils/util'
 import {
-  getOrderInfo, getPayment
+  getOrderInfo, getPayment,
+  cancelOrder
 } from '../../utils/apis'
 Page({
   data: {
@@ -23,7 +24,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 1409
+    this.id = options.id || 1413
     this.loadData()
   },
   onReady: function () {
@@ -55,6 +56,7 @@ Page({
   },
 
   initCountdown(count) {
+    var that = this
     this.setData({
       count
     })
@@ -63,6 +65,9 @@ Page({
       this.setData({
         countLabel: countdownFormat(count)
       })
+    }, () => {
+      console.log('complete')
+      that.loadData()
     })
     this.countdown = countdown
   },
@@ -85,6 +90,9 @@ Page({
         wx.setNavigationBarTitle({
           title: data['seller_name'],
         })
+        if (that.countdown) {
+          that.countdown.stop()
+        }
         if (data.left_time > 0) {
           that.initCountdown(+data.left_time)
         }
@@ -131,11 +139,12 @@ Page({
     getPayment({
       order_id,
       success(data) {
-        wx.requestPayment({
+        requestPayment({
+          data,
           success(data) {
             that.loadData()
           },
-          complete () {
+          complete() {
             that.setData({
               loading: false
             })
@@ -145,6 +154,23 @@ Page({
       error() {
         that.setData({
           loading: false
+        })
+      }
+    })
+  },
+  onCancelTap(e) {
+    var that = this;
+    var {info: {order_id, title}} = this.data
+    confirm({
+      content: `是否取消订单 ${title}`,
+      confirmText: '取消订单',
+      ok() {
+        cancelOrder({
+          order_id,
+          success(data) {
+            alert('取消订单成功')
+            that.loadData()
+          }
         })
       }
     })

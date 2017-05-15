@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/order/show",
-    "pages/order/list",
-    "pages/shop/show",
-    "pages/mine/mine",
     "pages/index/index",
+    "pages/shop/show",
+    "pages/order/list",
+    "pages/order/show",
+    "pages/mine/mine",
     "pages/address/select",
     "pages/order/quasi",
     "pages/address/list",

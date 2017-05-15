@@ -18,12 +18,13 @@
           <view class="flow-item__time">{{item.time_format}}</view>
         </view>
       </view>
-      <view wx:if="{{count > 0}}" class="order-show__left-time">
-        支付剩余时间
-        <text class="primary-color">{{countLabel}}</text>
+      <view wx:if="{{info.left_time > 0}}" class="order-show__left-time">
+        <text wx:if="{{info.state == 1}}">支付剩余时间</text>
+        <text wx:elif="{{info.state == 2}}">等待商家接单</text>
+        <text class="primary-color order-show__left-time-label">{{countLabel}}</text>
       </view>
-      <view wx:if="{{info.state < 4}}" class="actionbar">
-        <button wx:if="{{info.state < 4}}" class="weui-btn actionbar-btn actionbar-btn_action">取消订单</button>
+      <view wx:if="{{info.state <= 2 || info.state == 4}}" class="actionbar">
+        <button bindtap="onCancelTap" wx:if="{{info.state <= 2}}" class="weui-btn actionbar-btn actionbar-btn_action">取消订单</button>
         <button loading="{{loading}}" disabled="{{loading}}" bindtap="onPayTap" wx:if="{{info.state == 1}}" class="weui-btn actionbar-btn actionbar-btn_action actionbar-btn_primary" type="primary">立即付款</button>
         <view wx:if="{{info.state == 4}}" class="actionbar-btn actionbar-btn_action actionbar-btn_primary">评价</view>
       </view>

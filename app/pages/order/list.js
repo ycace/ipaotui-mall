@@ -1,11 +1,11 @@
 // pages/order/list.js
 import { ORDER_STATES } from './constant'
 import {
-  getOrders
+  getOrders, getPayment
 } from '../../utils/apis'
 
 import {
-  datetimeFormat
+  datetimeFormat, requestPayment
 } from '../../utils/util'
 
 var initData = {
@@ -21,6 +21,16 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    console.log('onLoad')
+    var that = this
+    getApp().getLoginInfo(loginInfo => {
+      that.setData({
+        loginInfo: loginInfo
+      })
+      if (loginInfo.is_login) {
+        that.initData()
+      }
+    })
   },
   onReady: function () {
     // 页面渲染完成
@@ -32,10 +42,6 @@ Page({
       that.setData({
         loginInfo: loginInfo
       })
-      var {list} = that.data
-      if (loginInfo.is_login && !list) {
-        that.initData()
-      }
     })
   },
   onHide: function () {
@@ -45,6 +51,7 @@ Page({
     // 页面关闭
   },
   initData(cb) {
+    this.setData(initData)
     this.loadData(cb)
   },
   loadData(cb) {
@@ -80,6 +87,40 @@ Page({
       }
     })
   },
+  onPayTap(e) {
+    var {id} = e.currentTarget
+    var that = this
+    var {list, loading} = this.data
+    if (loading) {
+      return;
+    }
+
+    this.setData({
+      loading: true
+    })
+    var {order_id} = list[id]
+    getPayment({
+      order_id,
+      success(data) {
+        requestPayment({
+          data,
+          success(data) {
+            that.initData()
+          },
+          complete() {
+            that.setData({
+              loading: false
+            })
+          }
+        })
+      },
+      error() {
+        that.setData({
+          loading: false
+        })
+      }
+    })
+  },
   onReachBottom(e) {
     var {
       loginInfo: {is_login},
@@ -101,7 +142,10 @@ Page({
       wx.stopPullDownRefresh()
     }
   },
+
   callback(loginInfo) {
-    this.setData(initData)
+    if (this.data.list) {
+      this.onLoad()
+    }
   }
 })

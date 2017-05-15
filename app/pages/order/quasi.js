@@ -5,7 +5,7 @@ import {
 } from '../../utils/apis'
 
 import {
-  requestPayment
+  requestPayment, getCurrentPage
 } from '../../utils/util'
 Page({
   data: {
@@ -106,8 +106,12 @@ Page({
                 that.setData({
                   loading: false
                 })
-                wx.redirectTo({
-                  url: `/pages/order/show?id=${order_id}`
+                wx.switchTab({
+                  url: '/pages/order/list',
+                  success(res) {
+                    var {callback} = getCurrentPage()
+                    callback && callback()
+                  }
                 })
               }
             })

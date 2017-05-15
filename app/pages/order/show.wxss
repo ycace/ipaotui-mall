@@ -134,6 +134,9 @@
   left: 10px;
   font-size: 0.8em;
 }
+.order-show__left-time-label {
+  margin-left: 5px;
+}
 
 .phone {
   position: absolute;

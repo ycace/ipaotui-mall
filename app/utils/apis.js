@@ -393,6 +393,29 @@ export function addOrder(options) {
   })
 }
 
+// 取消订单
+export function cancelOrder(options) {
+  var {
+    order_id,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=cancelOrder',
+      data: {
+        user_id, user_token,
+        order_id
+      },
+      success, error
+    })
+
+  })
+}
+
 // 获取订单列表
 export function getOrders(options) {
   var {

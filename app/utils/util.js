@@ -161,6 +161,10 @@ export function getPrevPage() {
   const pages = getCurrentPages()
   return pages[pages.length - 2]
 }
+export function getCurrentPage() {
+  const pages = getCurrentPages()
+  return pages[pages.length - 1]
+}
 
 export function fetch(options) {
   wx.request({
