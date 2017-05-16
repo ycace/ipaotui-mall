@@ -1,1 +1,7 @@
 /* pages/index/search.wxss */
+@import '/templates/load-more.wxss';
+@import './templates/shop.wxss';
+
+.search-list {
+  margin-top: 10px;
+}

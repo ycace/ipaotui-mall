@@ -6,9 +6,9 @@
   <navigator url="./address?callback=callback" class="address trangle">
     <image class="address__icon" src="/images/location.png"></image>{{currentAddress ? currentAddress.title : '定位中...'}}
   </navigator>
-  <view class="search">
+  <navigator url="./search" class="search">
     <icon type="search" size="20" /> 搜索
-  </view>
+  </navigator>
 </view>
 <view class="category">
   <navigator class="category__item" url="/pages/index/category?id={{item.category_id}}" wx:for="{{category}}" wx:key="category_id">
