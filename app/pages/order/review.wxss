@@ -1,0 +1,51 @@
+/* pages/order/review.wxss */
+@import './templates/rate.wxss';
+
+.review {
+  margin: 15px;
+}
+
+.review-box {
+  padding: 0 10px;
+  background-color: #fff;
+}
+
+.review-box:not(:first-child) {
+  margin-top: 15px;
+}
+
+.review-box__hd {
+  padding: 10px 0;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.review-box__bd {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.correct {
+  float: right;
+  color: #ff5801;
+}
+
+.review-content{
+  position: relative;
+  margin-top: 10px;
+}
+
+.review-content__textarea {
+  padding: 5px 8px;
+  width: 100%;
+  text-align: left;
+  border: 1rpx solid #e8e8e8;
+  box-sizing: border-box;
+}
+
+.review-content__tips {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 0.8em;
+  color: #999;
+}

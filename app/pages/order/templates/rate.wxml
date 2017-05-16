@@ -1,0 +1,5 @@
+<template name="rate">
+  <view class="rate">
+    <view id="{{item + 1}}"  bindtap="{{onItemTap}}" wx:for="{{count || 5}}"  wx:key="*this" class="rate__item {{value > item ? 'rate__item_active': ''}}">★</view>
+  </view>
+</template>

@@ -464,6 +464,33 @@ export function getOrderInfo(options) {
   })
 }
 
+// 订单评论
+export function reviewsOrder(options) {
+  var {
+    order_id,
+    service, quality, content,
+    reach_time,
+    success, error
+  } = options
+  getApp().getLoginInfo(loginInfo => {
+    if (!loginInfo.user_info) {
+      return alert('用户未登录')
+    }
+    var {user_id, user_token} = loginInfo.user_info
+    fetch({
+      url: 'index.php?m=Mall&c=Order&a=reviewsOrder',
+      data: {
+        user_id, user_token,
+        order_id,
+        service, quality, content,
+        reach_time
+      },
+      success, error
+    })
+
+  })
+}
+
 // 获取支付参数
 export function getPayment(options) {
   var {
@@ -547,3 +574,5 @@ export function search(options) {
 
   })
 }
+
+

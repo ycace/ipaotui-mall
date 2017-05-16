@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/order/list",
+    "pages/order/show",
+    "pages/order/review",
     "pages/index/index",
     "pages/index/search",
     "pages/index/category",
     "pages/shop/show",
-    "pages/order/list",
-    "pages/order/show",
     "pages/mine/mine",
     "pages/address/select",
     "pages/order/quasi",

@@ -1,0 +1,38 @@
+<!--pages/order/review.wxml-->
+<import src="templates/rate.wxml" />
+<view class="review">
+  <view class="review-box">
+    <view class="review-box__hd">
+      <view class="">爱跑腿专送</view>
+      <view class="text-small">
+        {{reach_date}} {{reach_time}} 左右到达
+        <!--<picker bindchange="onChangeTime" mode="time" value="{{reach_time}}" class="correct trangle">更正</picker>-->
+      </view>
+    </view>
+    <view class="review-box__bd">
+      <view class="">{{RATE_LABELS[service]?RATE_LABELS[service]: '为配送打分'}}</view>
+      <view class="">
+        <template is="rate" data="{{value: service, onItemTap: 'onServiceChange'}}"></template>
+      </view>
+    </view>
+  </view>
+  <view class="review-box">
+    <view class="review-box__hd">
+      <view class="">{{info.seller_name}}</view>
+    </view>
+    <view class="review-box__bd">
+      <view class="">{{RATE_LABELS[quality]?RATE_LABELS[quality]: '为商家打分'}}</view>
+      <view class="">
+        <template is="rate" data="{{value: quality, onItemTap: 'onQualityChange'}}"></template>
+      </view>
+      <view class="review-content">
+        <textarea bindinput="onContentInput" class="review-content__textarea" placeholder="写下您对配送和商家的评价吧~" />
+        <view wx:if="{{content.length < limitLength}}" class="review-content__tips">还需输入{{limitLength - content.length}}个字</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="button-sp-area">
+    <button bindtap="onSubmit" loading="{{loading}}" disabled="{{loading}}" type="primary">提交</button>
+  </view>
+</view>

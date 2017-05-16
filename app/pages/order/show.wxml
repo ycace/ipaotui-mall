@@ -23,10 +23,10 @@
         <text wx:elif="{{info.state == 2}}">等待商家接单</text>
         <text class="primary-color order-show__left-time-label">{{countLabel}}</text>
       </view>
-      <view wx:if="{{info.state <= 2 || info.state == 4}}" class="actionbar">
+      <view wx:if="{{info.state <= 2 || (info.state == 4 && info.is_reviews == 0)}}" class="actionbar">
         <button bindtap="onCancelTap" wx:if="{{info.state <= 2}}" class="weui-btn actionbar-btn actionbar-btn_action">取消订单</button>
         <button loading="{{loading}}" disabled="{{loading}}" bindtap="onPayTap" wx:if="{{info.state == 1}}" class="weui-btn actionbar-btn actionbar-btn_action actionbar-btn_primary" type="primary">立即付款</button>
-        <view wx:if="{{info.state == 4}}" class="actionbar-btn actionbar-btn_action actionbar-btn_primary">评价</view>
+        <navigator url="/pages/order/review?id={{info.order_id}}" wx:if="{{info.state == 4 && info.is_reviews == 0}}" class="actionbar-btn actionbar-btn_action actionbar-btn_primary">评价</navigator>
       </view>
     </swiper-item>
     <swiper-item class="tab__swiper-item tab__swiper-item_detail">

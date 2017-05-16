@@ -1,0 +1,18 @@
+.rate {
+  margin-top: 10px;
+}
+.rate__item  {
+  display: inline-block;
+  margin: 0 5px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #e8e8e8;
+  border-radius: 5px;
+}
+
+.rate__item_active {
+  background-color: #ff5801;
+}

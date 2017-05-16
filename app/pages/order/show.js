@@ -24,7 +24,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 1413
+    this.id = options.id || 1468
     this.loadData()
   },
   onReady: function () {
@@ -107,18 +107,24 @@ Page({
 
   onPhoneTap(e) {
     var that = this
-    var {info: {seller_phone, localphone}} = this.data
+    var {info: {seller_phone, localphone, delivery_phone}} = this.data
+    var phones = [
+      `商家电话: ${seller_phone}`,
+      `客服电话: ${localphone}`
+    ]
+    if(delivery_phone) {
+      phones.push(`跑腿电话: ${delivery_phone}`)
+    }
     wx.showActionSheet({
-      itemList: [
-        `商家电话: ${seller_phone}`,
-        `客服电话: ${localphone}`
-      ],
+      itemList: phones,
       success: function (res) {
         var {tapIndex} = res
         if (tapIndex == 0) {
           makePhoneCall(seller_phone)
         } else if (tapIndex == 1) {
           makePhoneCall(localphone)
+        } else if(tapIndex == 2) {
+          makePhoneCall(delivery_phone)
         }
       },
       fail: function (res) {
@@ -180,5 +186,9 @@ Page({
       wx.stopPullDownRefresh()
     })
   },
+
+  callback() {
+    this.loadData()
+  }
 
 })
