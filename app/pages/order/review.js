@@ -169,6 +169,7 @@ Page({
       return alert(`评论内容不能小于${limitLength}个字`)
     }
 
+    // var reach_date = dateFormat(new Date(receive_time * 1000), "yyyy-mm-dd")
 
     this.setData({
       loading: true
@@ -176,6 +177,7 @@ Page({
     reviewsOrder({
       order_id,
       service, quality, content,
+      // reach_time: `${reach_date} ${reach_time}`,
       success(data) {
         that.setData({
           loading: false
