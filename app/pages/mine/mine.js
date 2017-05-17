@@ -59,5 +59,11 @@ Page({
     this.setData({
       loginInfo: loginInfo.user_info
     })
+  },
+  onShareAppMessage() {
+    return {
+      title: '我的信息',
+      path: '/pages/mine/mine'
+    }
   }
 })

@@ -370,5 +370,12 @@ Page({
         }
       })
     })
+  },
+  onShareAppMessage() {
+    var {info:{seller_id, seller_name}} = this.data
+    return {
+      title: seller_name,
+      path: `/pages/shop/show?id=${seller_id}`
+    }
   }
 })

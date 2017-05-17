@@ -118,5 +118,11 @@ Page({
   callback(address) {
     getApp().setCurrentAddress(address)
     this.initAddress()
+  },
+  onShareAppMessage() {
+    return {
+      title: '首页',
+      path: '/pages/index/index'
+    }
   }
 })

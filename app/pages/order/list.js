@@ -147,5 +147,11 @@ Page({
     if (this.data.list) {
       this.onLoad()
     }
+  },
+  onShareAppMessage() {
+    return {
+      title: '我的订单',
+      path: '/pages/order/list'
+    }
   }
 })
