@@ -49,9 +49,9 @@
 }
 
 .quasi-goods__item-name-icon {
-  margin: -2px 5px 0 0;
-  height: 21px;
-  width: 21px;
+  margin: -4px 5px 0 0;
+  height: 20px;
+  width: 20px;
   vertical-align: middle;
 }
 

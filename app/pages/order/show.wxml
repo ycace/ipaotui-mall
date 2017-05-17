@@ -49,7 +49,7 @@
             </view>
           </view>
           <view class="quasi-goods__list">
-            <view class="quasi-goods__item">
+            <view wx:if="{{info.packing_fee > 0}}" class="quasi-goods__item">
               <view class="quasi-goods__item-name">餐盒费</view>
               <view class="quasi-goods__item-num"></view>
               <view class="quasi-goods__item-price">¥{{info.packing_fee}}</view>
@@ -60,19 +60,26 @@
               <view class="quasi-goods__item-price">¥{{info.delivery_fee}}</view>
             </view>
           </view>
-          <view class="quasi-goods__list">
-            <view class="quasi-goods__item">
+          <view wx:if="{{info.cut_money > 0 || info.user_coupon_id}}" class="quasi-goods__list">
+            <view wx:if="{{info.cut_money > 0}}" class="quasi-goods__item">
               <view class="quasi-goods__item-name quasi-goods__item-name_grey">
                 <image class="quasi-goods__item-name-icon" src="/images/icon_jian.png"></image>商城优惠
               </view>
               <view class="quasi-goods__item-num"></view>
               <view class="quasi-goods__item-price">-¥{{info.cut_money}}</view>
             </view>
+            <view wx:if="{{info.user_coupon_id}}" class="quasi-goods__item">
+              <view class="quasi-goods__item-name quasi-goods__item-name_grey">
+                <image class="quasi-goods__item-name-icon" src="/images/icon_hongbao.png"></image>红包
+              </view>
+              <view class="quasi-goods__item-num"></view>
+              <view class="quasi-goods__item-price">-¥{{info.coupon_money}}</view>
+            </view>
           </view>
           <view class="quasi-goods__list">
             <view class="quasi-goods__item">
               <view class="quasi-goods__item-name quasi-goods__item-name_grey">
-                总计¥{{info.order_price}} 优惠¥{{info.cut_money}}
+                总计¥{{info.order_price}} 优惠¥{{info.cut_money_total}}
               </view>
               <view class="quasi-goods__item-num"></view>
               <view class="quasi-goods__item-price primary-color">

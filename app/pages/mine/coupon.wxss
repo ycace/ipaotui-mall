@@ -1,0 +1,53 @@
+/* pages/mine/coupon.wxss */
+@import '/templates/load-more.wxss';
+
+.coupon-list {
+  padding: 0 15px;
+}
+
+.coupon-item {
+  position: relative;
+  margin-top: 10px;
+  padding: 0 15px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.coupon-item__bd {
+  padding: 15px 0 10px 0;
+}
+
+.coupon-item__name {
+  color: #ff5801;
+}
+
+.coupon-item__deadline {
+  color: #999;
+  font-size: 0.8em;
+}
+
+.coupon-item__ft {
+  padding: 5px 0;
+  font-size: 0.8em;
+  color: #999;
+  border-top: 1rpx dashed #e8e8e8;
+}
+
+.coupon-item__money {
+  padding: 5px 10px;
+  color: #ff5801;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.coupon-item__money-num {
+  font-size: 2em;
+}
+
+.coupon-item__selected-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 39px;
+}

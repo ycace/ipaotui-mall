@@ -1,6 +1,6 @@
 // pages/order/quasi.js
 import {
-  getQuasiOrderInfo, updateOrderAddr,
+  getQuasiOrderInfo, updateOrderAddr, updateOrderCoupon,
   addOrder, getPayment
 } from '../../utils/apis'
 
@@ -13,7 +13,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || '2725'
+    this.id = options.id || '2825'
     this.loadData()
   },
   onReady: function () {
@@ -42,6 +42,8 @@ Page({
     getQuasiOrderInfo({
       quasi_order_id: id,
       success(data) {
+        data['cut_money_total'] = +data.cut_money + +data.coupon_money
+
         that.setData({
           info: data,
           loading: false
@@ -69,6 +71,37 @@ Page({
       quasi_order_id: id,
       addr_id,
       success(data) {
+        data['cut_money_total'] = +data.cut_money + +data.coupon_money
+        that.setData({
+          info: data,
+          loading: false
+        })
+        wx.hideNavigationBarLoading()
+      },
+      error() {
+        that.setData({
+          loading: false
+        })
+        wx.hideNavigationBarLoading()
+      }
+    })
+  },
+  callbackCoupon(user_coupon_id) {
+    var that = this
+    var {id} = this
+    var {loading} = this.data
+    if (loading) {
+      return
+    }
+    this.setData({
+      loading: true
+    })
+    wx.showNavigationBarLoading()
+    updateOrderCoupon({
+      quasi_order_id: id,
+      user_coupon_id,
+      success(data) {
+        data['cut_money_total'] = +data.cut_money + +data.coupon_money
         that.setData({
           info: data,
           loading: false

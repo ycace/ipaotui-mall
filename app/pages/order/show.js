@@ -24,7 +24,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 1468
+    this.id = options.id || 1488
     this.loadData()
   },
   onReady: function () {
@@ -80,6 +80,7 @@ Page({
       order_id,
       success(data) {
         data['add_time_format'] = datetimeFormat(data.add_time)
+        data['cut_money_total'] = +data.cut_money + +data.coupon_money
         data['flow'] = data.flow.map(item => {
           item['time_format'] = datetimeFormat(item.time)
           return item
@@ -107,13 +108,13 @@ Page({
 
   onPhoneTap(e) {
     var that = this
-    var {info: {seller_phone, localphone, delivery_phone}} = this.data
+    var {info: {seller_phone, localphone, runner_phone}} = this.data
     var phones = [
       `商家电话: ${seller_phone}`,
       `客服电话: ${localphone}`
     ]
-    if(delivery_phone) {
-      phones.push(`跑腿电话: ${delivery_phone}`)
+    if (runner_phone) {
+      phones.push(`跑腿电话: ${runner_phone}`)
     }
     wx.showActionSheet({
       itemList: phones,
@@ -124,7 +125,7 @@ Page({
         } else if (tapIndex == 1) {
           makePhoneCall(localphone)
         } else if(tapIndex == 2) {
-          makePhoneCall(delivery_phone)
+          makePhoneCall(runner_phone)
         }
       },
       fail: function (res) {

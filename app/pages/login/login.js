@@ -7,7 +7,7 @@ var initCount = 60
 Page({
   data: {
     codeLabel: '获取验证码',
-    phone: '13000000004',
+    phone: '',
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数

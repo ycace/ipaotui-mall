@@ -1,0 +1,28 @@
+<!--pages/mine/coupon.wxml-->
+<import src="/templates/load-more.wxml" />
+<view class="coupon-list">
+  <view id="{{item.draw_id}}" bindtap="{{selectedId ? 'onItemTap' : ''}}" wx:for="{{list}}" wx:key="draw_id" class="coupon-item">
+    <image wx:if="{{selectedId == item.draw_id}}" class="coupon-item__selected-img" src="/images/address_list_selected.png"></image>
+    <view class="coupon-item__bd weui-flex">
+      <view class="weui-flex__item">
+        <view class="coupon-item__name">
+          {{item.name}}
+        </view>
+        <view class="coupon-item__deadline">
+          有效期至 {{item.deadline_time_format}}
+        </view>
+      </view>
+      <view class="">
+        <view class="coupon-item__money">
+          ¥
+          <text class="coupon-item__money-num">{{item.money}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="coupon-item__ft">
+      仅限{{item.phone}}使用
+    </view>
+  </view>
+</view>
+
+<template is="load-more" data="{{hasMore: hasMore, loading: loading, noMoreLabel: '没有更多红包'}}"></template>
