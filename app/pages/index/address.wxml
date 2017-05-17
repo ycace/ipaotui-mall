@@ -25,7 +25,7 @@
       </view>
       <view class="address-list">
         <view id="{{index}}" bindtap="onAddressItemTap" wx:for="{{addressList}}" wx:key="addr_id" class="address-item">
-          <view class="address-item__addr">{{item.addr}}</view>
+          <view class="address-item__addr">{{item.addr}} {{item.detail}}</view>
           <view class="address-item__name grey-color text-small">
             {{item.receiver}} {{item.phone}}
           </view>

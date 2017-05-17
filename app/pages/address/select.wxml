@@ -4,13 +4,13 @@
     可选收货地址
   </view>
   <view class="address__list">
-    <view id="{{item.addr_id}}" bindtap="onItemTap" wx:for="{{list}}" wx:key="addr_id" class="address__item">
+    <view id="{{item.addr_id}}" data-index="{{index}}" bindtap="onItemTap" wx:for="{{list}}" wx:key="addr_id" class="address__item">
       <image wx:if="{{selectedId == item.addr_id}}" class="address__item-selected-img" src="/images/address_list_selected.png"></image>
       <view class="">
         {{item.receiver}} {{item.phone}}
       </view>
       <view class="grey-color">
-        {{item.addr}}
+        {{item.addr}} {{item.detail}}
       </view>
       <view class="address-actions">
         <navigator url="/pages/address/add?id={{item.addr_id}}&callback=callback" class="address-actions__item">

@@ -85,10 +85,13 @@ Page({
   },
   onItemTap(e) {
     var {id} = e.currentTarget
-    var {selectedId} = this.data
+    var {index} = e.currentTarget.dataset
+    var {selectedId, list} = this.data
     if (id == selectedId) {
       return
     }
+    getApp().setCurrentAddress(list[index])
+
     getPrevPage()[this.cb](id)
     wx.navigateBack()
   }
