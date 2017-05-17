@@ -2,8 +2,8 @@
  * 小程序配置文件
  */
 
-var host = "apitest.ipaotui.com"
-// var host = "api.ipaotui.com"
+// var host = "apitest.ipaotui.com"
+var host = "api.ipaotui.com"
 const debug = wx.getStorageSync('debug')
 if (debug) {
     host = "apitest.ipaotui.com"

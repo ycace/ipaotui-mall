@@ -65,7 +65,7 @@
       <view class="quasi-goods__list">
         <view class="quasi-goods__item">
           <view class="quasi-goods__item-name quasi-goods__item-name_grey">
-            总计¥{{info.order_price}} 优惠¥{{info.cut_money_total}}
+            总计¥{{info.order_price}} <text wx:if="{{info.cut_money_total > 0}}">优惠¥{{info.cut_money_total}}</text>
           </view>
           <view class="quasi-goods__item-num"></view>
           <view class="quasi-goods__item-price primary-color">

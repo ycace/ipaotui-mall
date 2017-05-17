@@ -88,9 +88,7 @@
               选好了
             </button>
             <button wx:else class="weui-btn menu-cart__btn" type="primary" disabled>
-              <text wx:if="{{order.totalPrice > 0}}">
-                还差{{info.min_price - order.totalPrice}}元起送
-              </text>
+              <text wx:if="{{order.totalPrice > 0}}">还差{{info.min_price - order.totalPrice}}元起送</text>
               <text wx:else>{{info.min_price}}元起送</text>
             </button>
           </view>
