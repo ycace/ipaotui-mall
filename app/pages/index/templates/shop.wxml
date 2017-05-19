@@ -1,7 +1,38 @@
 <import src="/templates/star-rate.wxml" />
 
 <template name="shop">
-  <navigator url="/pages/shop/show?id={{seller_id}}" class="weui-media-box weui-media-box_appmsg shop__item" hover-class="weui-cell_active">
+  <view wx:if="{{is_rest == 1}}"  class="weui-media-box weui-media-box_appmsg shop__item">
+    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+      <image class="weui-media-box__thumb" src="{{pic_url}}" />
+      <view class="shop__rest">休息中</view>
+    </view>
+    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+      <view class="weui-media-box__title">{{seller_name}}</view>
+      <view class="weui-media-box__desc shop__desc">
+        <view class="shop__sales">
+          <view class="shop__star">
+            <template is="star-rate" data="{{value: overall}}" />
+          </view>
+          <view>月售 {{sales}} 单</view>
+        </view>
+
+        <view class="shop__misc weui-flex">
+          <view class="shop__fee weui-flex__item">
+            起送 ¥{{min_price}}
+          </view>
+          <text class="shop__reach-time grey-color">{{distanceFormat}}km</text> |
+          <text class="shop__reach-time primary-color">{{reach_time}}分钟</text>
+        </view>
+      </view>
+      <view wx:if="{{promotion.length > 0}}" class="shop__promotion">
+        <view wx:for="{{promotion}}" wx:key="index" class="shop__promotion-item">
+          <image class="shop__promotion-icon" src="{{item.pic_url}}"></image>
+          {{item.info}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <navigator wx:else url="/pages/shop/show?id={{seller_id}}" class="weui-media-box weui-media-box_appmsg shop__item" hover-class="weui-cell_active">
     <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
       <image class="weui-media-box__thumb" src="{{pic_url}}" />
     </view>
