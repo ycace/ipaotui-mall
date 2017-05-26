@@ -1,11 +1,10 @@
-
 <!--pages/order/show.wxml-->
 <view class="order-show-tab tab">
   <view class="tab__navbar">
     <view bindtap="navChange" id="{{index}}" wx:for="{{tabNavs}}" wx:key="{{index}}" class="tab__navbar-item {{index == activeNavIndex?  'tab__navbar-item_active': ''}} ">
       订单状态
     </view>
-    <view bindtap="onPhoneTap"  class="phone">
+    <view bindtap="onPhoneTap" class="phone">
       <image class="phone__icon" src="/images/chat_phone_normal.png"></image>
     </view>
   </view>
@@ -110,12 +109,21 @@
             </view>
           </view>
         </view>
+
         <view class="weui-cell">
           <view class="weui-cell__hd">
             配送服务
           </view>
           <view class="weui-cell__bd">
             爱跑腿专送
+          </view>
+        </view>
+        <view class="weui-cell">
+          <view class="weui-cell__hd">
+            备注
+          </view>
+          <view class="weui-cell__bd">
+            {{info.remark || '无'}}
           </view>
         </view>
       </view>

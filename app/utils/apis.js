@@ -397,7 +397,7 @@ export function updateOrderCoupon(options) {
 // 添加订单
 export function addOrder(options) {
   var {
-    quasi_order_id,
+    quasi_order_id, remark,
     success, error
   } = options
   getApp().getLoginInfo(loginInfo => {
@@ -409,7 +409,7 @@ export function addOrder(options) {
       url: 'index.php?m=Mall&c=Order&a=addOrder',
       data: {
         user_id, user_token,
-        quasi_order_id
+        quasi_order_id, remark
       },
       success, error
     })

@@ -19,6 +19,7 @@
       <view class="weui-cell__bd">支付方式</view>
       <view class="">在线支付</view>
     </view>
+
     <navigator url="/pages/mine/coupon?id={{info.user_coupon_id}}&callback=callbackCoupon" wx:if="{{info.user_coupon_id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__bd">红包</view>
       <view class="weui-cell__ft_in-access">¥{{info.coupon_money}}</view>
@@ -28,6 +29,7 @@
       <view class="weui-cell__ft">暂无可用</view>
     </view>
   </view>
+
   <view class="quasi-goods">
     <view class="quasi-goods__hd">
       <image class="quasi-goods__img" src="/images/shop-512.png"></image>
@@ -75,6 +77,15 @@
       </view>
     </view>
   </view>
+
+  <view class="weui-cells">
+    <navigator url="./content?callback=callbackContent&content={{content}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd weui-cell__bd_content">备注</view>
+      <view>{{content}}</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">{{content ? '' : '口味, 偏好等要求'}}</view>
+    </navigator>
+  </view>
+
 </view>
 <view class="quasi-actions">
   <view class="quasi-actions__cut">已优惠¥{{info.cut_money_total}}</view>

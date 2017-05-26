@@ -1,12 +1,13 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/order/list",
     "pages/order/show",
     "pages/order/quasi",
+    "pages/order/content",
     "pages/mine/coupon",
     "pages/shop/show",
     "pages/mine/mine",
-    "pages/order/list",
     "pages/order/review",
     "pages/index/search",
     "pages/index/category",

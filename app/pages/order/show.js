@@ -24,7 +24,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || 1488
+    this.id = options.id || 1497
     this.loadData()
   },
   onReady: function () {

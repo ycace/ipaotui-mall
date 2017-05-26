@@ -9,11 +9,11 @@ import {
 } from '../../utils/util'
 Page({
   data: {
-    
+    content: ''
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || '2825'
+    this.id = options.id || '2843'
     this.loadData()
   },
   onReady: function () {
@@ -116,10 +116,15 @@ Page({
       }
     })
   },
+  callbackContent(content) {
+    this.setData({
+      content
+    })
+  },
   onAddOrder(e) {
     var that = this
     var {id} = this
-    var {loading} = this.data
+    var {loading, content} = this.data
     if (loading) {
       return
     }
@@ -127,6 +132,7 @@ Page({
       loading: true
     })
     addOrder({
+      remark: content,
       quasi_order_id: id,
       success(data) {
         var order_id = data['order']['order_id']

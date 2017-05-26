@@ -1,0 +1,15 @@
+<!--pages/order/content.wxml-->
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea bindinput="onContentInput" value="{{content}}" class="weui-textarea" placeholder="口味, 偏好等要求" style="height: 3.3em" />
+      <view class="weui-textarea-counter">{{content.length}}/{{limit}}</view>
+    </view>
+  </view>
+</view>
+
+<view class="button-sp-area">
+  <button bindtap="onSaveTap" disabled="{{disabled}}" class="weui-btn" type="primary" loading="{{loading}}">
+    确定
+  </button>
+</view>

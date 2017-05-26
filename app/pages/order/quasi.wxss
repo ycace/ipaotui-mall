@@ -7,6 +7,9 @@
 .weui-media-box_address::after {
   right: 15px;
 }
+.weui-cell__bd_content {
+  min-width: 4em;
+}
 
 /* quasi-goods */
 
