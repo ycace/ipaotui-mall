@@ -32,10 +32,10 @@
       <view class="weui-cells__title">订单详情</view>
       <view class="quasi-goods">
         <view class="quasi-goods__hd weui-flex">
-          <navigator url="/pages/shop/show?id={{info.seller_id}}" class=" trangle">
+          <view>
             <image class="quasi-goods__img" src="/images/shop-512.png"></image>
             {{info.seller_name}}
-          </navigator>
+          </view>
           <view class=" weui-flex__item"></view>
           <view class="grey-color">爱跑腿专送</view>
         </view>
