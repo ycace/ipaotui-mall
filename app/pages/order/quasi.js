@@ -5,6 +5,7 @@ import {
 } from '../../utils/apis'
 
 import {
+  alert,
   requestPayment, getCurrentPage
 } from '../../utils/util'
 Page({
@@ -13,7 +14,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || '2843'
+    this.id = options.id || '2853'
     this.loadData()
   },
   onReady: function () {
@@ -124,9 +125,12 @@ Page({
   onAddOrder(e) {
     var that = this
     var {id} = this
-    var {loading, content} = this.data
+    var {loading, content, info} = this.data
     if (loading) {
       return
+    }
+    if (!info.receiver_addr_id) {
+      return alert('请选择用户地址')
     }
     this.setData({
       loading: true
