@@ -43,6 +43,8 @@ App({
     }
 
     getCurrentAddress(address => {
+      address = that.setCurrentAddress(address)
+      cb(address)
       this.getLoginInfo(loginInfo => {
         if (loginInfo.is_login) {
           this.findNearbyUserAddr(userAddress => {
@@ -52,9 +54,6 @@ App({
             address = that.setCurrentAddress(address)
             cb(address)
           })
-        } else {
-          address = that.setCurrentAddress(address)
-          cb(address)
         }
       })
     })
