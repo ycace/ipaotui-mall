@@ -18,11 +18,15 @@ Page({
    */
   onLoad: function (options) {
     this.callback = options.callback || 'callback'
-    var {content} = options
+    var content = options.content
+    var that = this
     if (content) {
-      this.setData({
-        content
-      })
+      // fix textarea value not work
+      setTimeout(function () {
+        that.setData({
+          content
+        })
+      }, 200)
     }
   },
 
