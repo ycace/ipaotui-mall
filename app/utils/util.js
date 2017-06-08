@@ -57,7 +57,28 @@ export function getCurrentAddressList(options) {
     },
     fail(res) {
       console.log(res.errMsg)
-      alert('获取用户地址失败')
+      if (res.errMsg == 'getLocation:fail auth deny' && wx.openSetting) {
+        confirm({
+          content: '若不授权地理位置权限, 则无法正常使用爱跑腿外卖, 请重新授权地理位置权限',
+          cancelText: '不授权',
+          confirmText: '授权',
+          ok() {
+            wx.openSetting({
+              success(res) {
+                console.log(res)
+                if (res.authSetting['scope.userLocation']) {
+                  getCurrentAddressList(options)
+                } else {
+                  alert('获取用户地址失败')
+                }
+              }
+            })
+          }
+        })
+      } else {
+        alert('获取用户地址失败')
+      }
+
     }
   })
 }
@@ -201,14 +222,15 @@ export function alert(content, callback) {
 // 确认框
 export function confirm(options) {
   var {
-    content, confirmText,
+    content, confirmText, cancelText,
     ok,
   } = options
   confirmText = confirmText || '确定'
+  cancelText = cancelText || '关闭'
   wx.showModal({
     content,
     confirmText,
-    cancelText: '关闭',
+    cancelText,
     success(res) {
       if (res.confirm) {
         ok && ok()
@@ -308,7 +330,28 @@ export function getUserInfo(cb) {
       },
       fail(res) {
         console.log(res)
-        alert('获取用户信息失败')
+        if (res.errMsg == 'getUserInfo:fail auth deny' && wx.openSetting) {
+          confirm({
+            content: '若不授用户信息权限, 则无法正常显示用户头像和昵称, 请重新授权用户信息权限',
+            cancelText: '不授权',
+            confirmText: '授权',
+            ok() {
+              wx.openSetting({
+                success(res) {
+                  console.log(res)
+                  if (res.authSetting['scope.userInfo']) {
+                    getUserInfo(cb)
+                  } else {
+                    alert('获取用户信息失败')
+                  }
+                }
+              })
+            }
+          })
+
+        } else {
+          alert('获取用户信息失败')
+        }
       }
     })
   }
