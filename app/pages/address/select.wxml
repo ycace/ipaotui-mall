@@ -17,10 +17,6 @@
           <image class="address-actions__item-img" src="/images/address_edit_white.png">
           </image>
         </navigator>
-        <view id="{{index}}" bindtap="onDelete" class="address-actions__item">
-          <image class="address-actions__item-img" src="/images/delete@2x.png">
-          </image>
-        </view>
       </view>
     </view>
   </view>
