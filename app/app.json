@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/mine/mine",
     "pages/index/index",
     "pages/order/quasi",
     "pages/order/show",
@@ -7,7 +8,6 @@
     "pages/order/list",
     "pages/order/content",
     "pages/mine/coupon",
-    "pages/mine/mine",
     "pages/order/review",
     "pages/index/search",
     "pages/index/category",

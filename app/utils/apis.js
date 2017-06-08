@@ -87,14 +87,20 @@ export function login(options) {
   } = options
   wx.login({
     success(res) {
-      fetch({
-        url: 'index.php?m=Api&c=WeixinMall&a=login',
-        data: {
-          phone, code,
-          wx_code: res['code'],
-          session_3rd: wx.getStorageSync('session_3rd')
-        },
-        success, error
+      getApp().getCurrentAddress(address => {
+        fetch({
+          url: 'index.php?m=Api&c=WeixinMall&a=login',
+          data: {
+            phone, code,
+            wx_code: res['code'],
+            session_3rd: wx.getStorageSync('session_3rd'),
+            city_id: address.city_id,
+            city_name: address.city,
+            district_id: address.district_id,
+            district_name: address.district,
+          },
+          success, error
+        })
       })
     },
     error(res) {

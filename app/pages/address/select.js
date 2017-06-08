@@ -53,6 +53,14 @@ Page({
         })
         wx.hideNavigationBarLoading()
         cb && cb()
+        if(data.length === 0) {
+          wx.navigateTo({
+            url: '/pages/address/add',
+            success: function(res) {},
+            fail: function(res) {},
+            complete: function(res) {},
+          })
+        }
       },
       error() {
         that.setData({

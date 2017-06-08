@@ -14,7 +14,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.id = options.id || '2859'
+    this.id = options.id || '2908'
     this.loadData()
   },
   onReady: function () {
@@ -130,7 +130,7 @@ Page({
       return
     }
     if (!info.receiver_addr_id) {
-      return alert('请选择用户地址')
+      return alert('请选择收货地址')
     }
     this.setData({
       loading: true

@@ -10,7 +10,7 @@
         </view>
       </navigator>
       <navigator wx:else url="/pages/address/select?callback=callbackAddress" class=" weui-media-box weui-media-box_text weui-cell__ft_in-access weui-media-box_address primary-color text-large">
-        选择地址
+        选择收货地址
       </navigator>
     </view>
   </view>
