@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/mine/mine",
     "pages/index/index",
+    "pages/address/select",
+    "pages/mine/mine",
     "pages/order/quasi",
     "pages/order/show",
     "pages/shop/show",
@@ -11,7 +12,6 @@
     "pages/order/review",
     "pages/index/search",
     "pages/index/category",
-    "pages/address/select",
     "pages/address/list",
     "pages/index/address",
     "pages/address/add",

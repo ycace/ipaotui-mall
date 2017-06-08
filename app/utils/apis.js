@@ -257,7 +257,7 @@ export function updateUserAddr(options) {
         city_id: address.city_id,
         city_name: address.city,
         district_id: address.district_id,
-        district_name: address.district_name,
+        district_name: address.district,
       },
       success, error
     })
